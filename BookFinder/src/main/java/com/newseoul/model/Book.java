@@ -2,12 +2,14 @@ package com.newseoul.model;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +23,8 @@ import lombok.Setter;
 @Entity
 public class Book {
 	@Id
+	@GeneratedValue(generator = "book_seq", strategy = GenerationType.SEQUENCE)
+	@SequenceGenerator(name = "book_seq", allocationSize = 1, sequenceName = "BOOK_SEQ")
 	private int bookId;
 	private String author;
 	private Date publicationDate;

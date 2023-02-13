@@ -21,6 +21,7 @@ public class Book {
 	private String author;
 	private Date publicationDate;
 	private String publisher;
+	private String bookDetail;
 	private int locationId;
 	private String locationMemo;
 	private int categoryId;

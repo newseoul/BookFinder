@@ -2,9 +2,34 @@
 <html xmlns:th="http//www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{user/layouts/main}">
+      
+	<th:block layout:fragment="css">
+		<link th:href="@{/css/pages/main.css}" rel="stylesheet">
+	</th:block>
+	
+	<th:block layout:fragment="script">
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script th:src="@{/js/pages/main.js}"></script>
+	</th:block>
 
     <div layout:fragment="content">
-        본문 영역입니다.
+        
+        <div id="search-area">
+        	<div class="row">
+        		<div class="input-group">
+					<select id="select-search-condition" class="form-select">
+						<option selected>전체</option>
+						<option value="1">저자</option>
+						<option value="2">도서명</option>
+						<option value="3">분류</option>
+					</select>
+					<input id="input-search-keyword" type="text" class="form-control" aria-label="Text input with dropdown button" aria-describedby="button-search">
+  					<button id="button-search" class="btn btn-outline-secondary" type="button">검색</button>
+				</div>
+        	</div>
+        </div>
+        <div id="result-area"></div>
+        
     </div>
 
 </html>

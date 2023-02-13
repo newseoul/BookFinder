@@ -1,4 +1,4 @@
-package com.newseoul.model;
+package com.newseoul.bookfinder.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

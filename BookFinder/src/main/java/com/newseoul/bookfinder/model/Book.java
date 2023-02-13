@@ -1,4 +1,4 @@
-package com.newseoul.model;
+package com.newseoul.bookfinder.model;
 
 import java.util.Date;
 
@@ -26,6 +26,7 @@ public class Book {
 	@GeneratedValue(generator = "book_seq", strategy = GenerationType.SEQUENCE)
 	@SequenceGenerator(name = "book_seq", allocationSize = 1, sequenceName = "BOOK_SEQ")
 	private int bookId;
+	private String bookName;
 	private String author;
 	private Date publicationDate;
 	private String publisher;

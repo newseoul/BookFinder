@@ -1,5 +1,7 @@
 package com.newseoul.bookfinder.model;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -42,4 +44,8 @@ public class Book {
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "category_id")
 	private Category category;
+	
+	public String getPublicationDate() {
+		return new SimpleDateFormat("yyyy-MM-dd").format(this.publicationDate);
+	}
 }

@@ -5,7 +5,12 @@
 #result-area {
 	margin-top: 15px;
 }
+.book-row {
+	margin-top:5px;
+	margin-bottom:5px;
+}
 .book-thumbnail {
+	width: 150px;
 	height:200px;
 }
 .book-title {

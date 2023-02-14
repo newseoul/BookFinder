@@ -2,15 +2,12 @@
 <html xmlns:th="http//www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{user/layouts/main}">
-      
-	<th:block layout:fragment="css">
-		<link th:href="@{/css/pages/main.css}" rel="stylesheet">
-	</th:block>
-	
-	<th:block layout:fragment="script">
+     
+    <head>
+		<link th:href="@{/css/pages/user/main.css}" rel="stylesheet">
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-		<script th:src="@{/js/pages/main.js}"></script>
-	</th:block>
+		<script th:src="@{/js/pages/user/main.js}"></script>
+    </head>
 
     <div layout:fragment="content">
         

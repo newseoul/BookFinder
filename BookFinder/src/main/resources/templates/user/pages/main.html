@@ -9,24 +9,27 @@
 		<script th:src="@{/js/pages/user/main.js}"></script>
     </head>
 
-    <div layout:fragment="content">
-        
-        <div id="search-area">
+    <main layout:fragment="content">
+        <div class="container">
         	<div class="row">
-        		<div class="input-group">
-					<select id="select-search-condition" class="form-select">
-						<option selected>전체</option>
-						<option value="1">저자</option>
-						<option value="2">도서명</option>
-						<option value="3">분류</option>
-					</select>
-					<input id="input-search-keyword" type="text" class="form-control" aria-label="Text input with dropdown button" aria-describedby="button-search">
-  					<button id="button-search" class="btn btn-outline-secondary" type="button">검색</button>
-				</div>
+        		<div id="search-area" class="col-md-12">
+	        		<div class="input-group">
+						<select id="select-search-condition" class="form-select">
+							<option selected>전체</option>
+							<option value="1">저자</option>
+							<option value="2">도서명</option>
+							<option value="3">분류</option>
+						</select>
+						<input id="input-search-keyword" type="text" class="form-control" aria-label="Text input with dropdown button" aria-describedby="button-search">
+	  					<button id="button-search" class="btn btn-outline-secondary" type="button">검색</button>
+					</div>
+        		</div>
         	</div>
+	        <div class="row">
+		        <div id="result-area" class="col-md-12"></div>	        
+	        </div>
         </div>
-        <div id="result-area"></div>
         
-    </div>
+    </main>
 
 </html>

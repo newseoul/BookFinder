@@ -2,3 +2,16 @@
 #input-search-keyword {
     flex: 10 0 auto;
 }
+#result-area {
+	margin-top: 15px;
+}
+.book-thumbnail {
+	height:200px;
+}
+.book-title {
+	margin-top:45px;	
+}
+.item-border-right {
+	padding-right:3px;margin-right:6px;
+	
+}

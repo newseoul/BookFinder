@@ -82,22 +82,47 @@
 		document.getElementById('result-area').appendChild(card);
 	};
 	
+	// 페이지 총 개수 표시
+	const renderTotalCount = keyword => {
+		const pageCount = document.getElementById('page-count');
+		pageCount.textContent = "";
+		
+		const params = { bookName: keyword };
+		axios.get('/api/book/count', {params})
+		.then(function (response) {
+			pageCount.textContent = "전체: " + response.data;
+		})
+		.catch(function (error) {
+			console.error('Ajax 통신 오류');
+			console.error(error);
+		});
+	};
+	
 	const search = (keyword) => {
 		const params = { bookName: keyword };
 		axios.get('/api/book', {params})
 		.then(function (response) {
+			// 총 개수 표시
+			renderTotalCount(keyword);
+			
+			// 검색 결과 영역 초기화
 			const area = document.getElementById('result-area');
 			while (area.firstChild) { 
 			    area.removeChild(area.firstChild);
 			}
+			
+			// 도서 검색 결과 렌더링
 			response.data.forEach(book => renderBook(book));
 		})
 		.catch(function (error) {
+			console.error('Ajax 통신 오류');
 			console.error(error);
 		});	
 	}
 	
 	document.addEventListener("DOMContentLoaded", () => {
+		
+		// 검색 버튼 클릭시 이벤트
 		const button = document.getElementById("button-search");
 		button.addEventListener("click", () => {
 			const input = document.getElementById("input-search-keyword");

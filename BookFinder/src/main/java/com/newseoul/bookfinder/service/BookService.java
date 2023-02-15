@@ -6,4 +6,5 @@ import com.newseoul.bookfinder.model.Book;
 
 public interface BookService {
 	List<Book> getBookList(String name, int page);
+	long getBookCount(String name);
 }

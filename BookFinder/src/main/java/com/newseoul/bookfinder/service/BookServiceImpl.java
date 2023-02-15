@@ -18,8 +18,13 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public List<Book> getBookList(String bookName, int pageNo) {
 		return bookRepository.findByBookNameContainingOrderByBookNameAsc(
-					bookName, PageRequest.of(pageNo - 1, 10)
+					bookName, PageRequest.of(pageNo - 1, 15)
 				);
+	}
+
+	@Override
+	public long getBookCount(String bookName) {
+		return bookRepository.countByBookNameContaining(bookName);
 	}
 
 }

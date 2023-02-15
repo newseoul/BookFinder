@@ -6,87 +6,91 @@
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<!-- <script th:src="@{/js/pages/admin/book-list.js}"></script> -->
 		<script>
-			document.addEventListener("DOMContentLoaded", () => {
-				const button = document.getElementById("btn-register");
-				button.addEventListener("click", () => {
-					const form = new FormData();
-					form.append('bookName', getElementById("bookName")).value; // 도서명
-					form.append('author', getElementById("author").value); // 저자
-					form.append('publisher', getElementById("publisher").value); // 출판사
-					form.append('publicationDate', getElementById("publicationDate").value); // 출판일
-					//form.append('locationId', getElementById("locationId").value); // 도서위치
-					//form.append('locationMemo', getElementById("locationMemo").value); // 도서 상세위치
-					//form.append('categoryId', getElementById("categoryId").value); // 분류ID
-					form.append('displayStatus', getElementById("displayStatus").value); // 노출여부
-					//form.append('filename', getElementById("filename"), filename.value).value; // 도서 이미지
-					form.append('bookDetail', getElementById("bookDetail").value); // 도서 상세(내용)
-				});
-			});
-			
-			$(function() {
-				var request = $.ajax({
-					type: "POST",
-					url: "../api/book/insert",
-					data: form,
-					contentType: false,
-					cache: false,
-					processData: false
+			(() => {
+				 const write = (formData) => {
+					axios.post('/api/book/insert', formData)
+					.then(function (response) {
+						//response.data.forEach(book => renderBook(book));
+						//console.log(response);					
+						console.log('성공');
+					})
+					.catch(function (error) {
+						console.log("ajax 통신 오류...");
+					});	
+				}
+				
+
+				// 서버에 제대로 전달했는지 로그 찍어서 확인
+	             
+				
+				document.addEventListener("DOMContentLoaded", () => {
+					const button = document.getElementById("btn-register");
+					button.addEventListener("click", () => {
+						console.log("들어옴")
+						const formData = new FormData();
+						formData.append('bookName', document.getElementById("bookName").value); // 도서명
+						formData.append('author', document.getElementById("author").value); // 저자
+						formData.append('publisher', document.getElementById("publisher").value); // 출판사
+						formData.append('publicationDate', document.getElementById("publicationDate").value); // 출판일
+						//formData.append('locationId', getElementById("locationId").value); // 도서위치
+						//formData.append('locationMemo', getElementById("locationMemo").value); // 도서 상세위치
+						//formData.append('categoryId', getElementById("categoryId").value); // 분류ID
+						//formData.append('displayStatus', getElementById("displayStatus").value); // 노출여부
+						//formData.append('filename', getElementById("filename"), filename.value).value; // 도서 이미지
+						formData.append('bookDetail', document.getElementById("bookDetail").value); // 도서 상세(내용)
+						console.log("끝남")
+						write(formData);
+						
+						// 값 확인
+						for(const value of formData.values()) {
+							console.log(value)
+						}
+					}); // click
 				});
 				
-				request.done(function(data){
-					console.log('ajax 통신 OK');
-					location.href="../";
-				});
-				
-				request.fail(function(data){
-					console.log('ajax 통신 NG');
-				});
-			});
-			
-			// 참고
-			// append(name, value)
-			// append(name, value, filename)
-			
+			})();
 		</script>
 	</head>
 
 	<body>
 		<h2>도서 등록</h2>
-		<dl>
-			<dt>도서명</dt>
-			<dd><input type="text" id="bookName" name="bookName" /></dd>
-			<dt>저자</dt>
-			<dd><input type="text" id="author" name="author" /></dd>
-			<dt>출판사</dt>
-			<dd><input type="text" id="publisher" name="publisher" /></dd>
-			<dt>출판일</dt>
-			<dd><input type="text" id="publicationDate" name="publicationDate" /></dd>
-			<!-- <dt>도서 위치</dt>
-			<dd>
-				<input type="text" id="locationId" name="locationId" />
-				<button type="button">위치 선택 버튼</button>
-			</dd>
-			<dt>도서 상세위치</dt>
-			<dd><input type="text" id="locationMemo " name="locationMemo" /></dd>
-			<dt>분류ID</dt>
-			<dd>
-				<input type="text" id="categoryId" name="categoryId" />
-				<button type="button">분류 ID 선택 버튼</button>
-			</dd> -->
-			<dt>노출여부</dt>
-			<dd>
-				<label for="openY">Y</label>
-				<input type="radio" id="openY" name="openChk" checked="checked" />
-				<label for="openN">N</label>
-				<input type="radio" id="openN" name="openChk" />
-			</dd>
-			<!-- <dt>도서 이미지</dt>
-			<dd><input tpye="file" id="filename" name="filename" /></dd> -->
-			<dt>도서 내용</dt>
-			<dd>
-				<textarea id="bookDetail" name="bookDetail"></textarea>
-			</dd>
-		</dl>
+		<form>
+			<dl>
+				<dt>도서명</dt>
+				<dd><input type="text" id="bookName" name="bookName" /></dd>
+				<dt>저자</dt>
+				<dd><input type="text" id="author" name="author" /></dd>
+				<dt>출판사</dt>
+				<dd><input type="text" id="publisher" name="publisher" /></dd>
+				<dt>출판일</dt>
+				<dd><input type="text" id="publicationDate" name="publicationDate" /></dd>
+				<!-- <dt>도서 위치</dt>
+				<dd>
+					<input type="text" id="locationId" name="locationId" />
+					<button type="button">위치 선택 버튼</button>
+				</dd>
+				<dt>도서 상세위치</dt>
+				<dd><input type="text" id="locationMemo " name="locationMemo" /></dd>
+				<dt>분류ID</dt>
+				<dd>
+					<input type="text" id="categoryId" name="categoryId" />
+					<button type="button">분류 ID 선택 버튼</button>
+				</dd> -->
+				<!-- <dt>노출여부</dt>
+				<dd>
+					<label for="openY">Y</label>
+					<input type="radio" id="openY" name="openChk" checked="checked" />
+					<label for="openN">N</label>
+					<input type="radio" id="openN" name="openChk" />
+				</dd> -->
+				<!-- <dt>도서 이미지</dt>
+				<dd><input tpye="file" id="filename" name="filename" /></dd> -->
+				<dt>도서 내용</dt>
+				<dd>
+					<textarea id="bookDetail" name="bookDetail"></textarea>
+				</dd>
+			</dl>
+		</form>
 		<div class="btn-area">
 			<button type="button" id="btn-register">등록</button>
 			<button type="button" onclick="locationhref='../'">목록</button>

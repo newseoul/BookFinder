@@ -54,4 +54,9 @@ public class BookServiceImpl implements BookService{
 	
 	
 
+	public void insertBook(Book book) {
+		bookRepository.save(book);
+		
+	}
+
 }

@@ -39,4 +39,10 @@ public class BookRestController {
 		return bookService.getBook(bookId);
 	}
 	
+	// 글 등록
+	@RequestMapping("/insert")
+	public void insert(Book book) {
+		bookService.insertBook(book);
+	}
+	
 }

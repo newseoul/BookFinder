@@ -8,4 +8,8 @@ public interface BookService {
 	List<Book> getBookList(String keyword, String condition, int page);
 	long getBookCount(String keyword, String condition);
 	Book getBook(int bookId);
+	List<Book> getBookList(String name, int page);
+	
+	void insertBook(Book book); // 도서 등록
+	
 }

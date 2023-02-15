@@ -13,4 +13,12 @@ public class MainController {
 	public String index(Model model) {
 		return "user/pages/main";
 	}
+	
+	// 글등록
+	@RequestMapping("/book-write")
+	public String write(Model model) {
+		return "admin/pages/book-write";
+	}
+	
+	
 }

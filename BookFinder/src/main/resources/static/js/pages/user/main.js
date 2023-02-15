@@ -6,14 +6,16 @@
 		card.classList.add("book-row");
 		
 		// 도서 이미지
+		const img = document.createElement("img");
+		img.classList.add("card-img-left");
+		img.classList.add("border");
+		img.classList.add("book-thumbnail");
 		if(typeof book.filename !== "undefined" && book.filename !== "" && book.filename !== null) {
-			const img = document.createElement("img");
-			img.classList.add("card-img-left");
-			img.classList.add("border");
-			img.classList.add("book-thumbnail");
 			img.setAttribute("src", "/images/uploads/" + book.filename);
-			card.appendChild(img);
+		} else {
+			img.setAttribute("src", "/images/noimg.jpg");
 		}
+		card.appendChild(img);
 		
 		const cardBody = document.createElement("div");
 		cardBody.classList.add("card-body");
@@ -64,13 +66,13 @@
 		location.classList.add("text-wrap");
 		location.classList.add("border-end");
 		location.classList.add("item-border-right");
-		location.textContent = "도서위치: " +  ( typeof book.location === 'object' && book.location.locationName !== "" && book.location.locationName !== null ? book.location.locationName : "" );  
+		location.innerHTML = "도서위치: " +  ( typeof book.location === 'object' && book.location.locationName !== "" && book.location.locationName !== null ? book.location.locationName : "<small class='text-muted'>(알수없음)</small>" );  
 		p2.appendChild(location);
 		
 		// 청구기호
 		const locationMemo = document.createElement("span");
 		locationMemo.classList.add("text-wrap");
-		locationMemo.textContent = "청구기호: " +  ( book.locationMemo !== "" && book.locationMemo !== null ? book.locationMemo : "" );  
+		locationMemo.innerHTML = "청구기호: " +  ( book.locationMemo !== "" && book.locationMemo !== null ? book.locationMemo : "<small class='text-muted'>(없음)</small>" );  
 		p2.appendChild(locationMemo);
 		
 		cardText.appendChild(p2);

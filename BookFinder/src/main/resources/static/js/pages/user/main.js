@@ -1,4 +1,13 @@
 (() => {
+	// 엘리멘트 초기화
+	const resetElem = (id) => {
+		const elem = document.getElementById(id);
+		while (elem.firstChild) { 
+		    elem.removeChild(elem.firstChild);
+		}
+	}
+	
+	// 도서 렌더링
 	const renderBook = (book) => {
 		const card = document.createElement("div");
 		card.classList.add("card");
@@ -82,15 +91,52 @@
 		document.getElementById('result-area').appendChild(card);
 	};
 	
+	// 페이지네이션 렌더링
+	const renderPagination = (totalCount, keyword, page) => {
+		// 페이지네이션 엘리멘트 초기화
+		resetElem('pagination');
+		
+		const lastPage = Math.ceil(totalCount / 15);
+		if(lastPage > 0) {
+			const nav = document.createElement("nav");
+			const ul = document.createElement("ul");
+			ul.classList.add("pagination");
+			
+			for(let i = 1; i <= lastPage; i++) {
+				const li = document.createElement("li");
+				li.classList.add("page-item");
+				// 현재 페이지 표시
+				if(i === page) {
+					li.classList.add("active");
+				}
+				
+				const a = document.createElement("a");
+				a.classList.add("page-link");
+				a.textContent = i;
+				a.setAttribute("href", '#');
+				a.addEventListener("click", () => {
+					search(keyword, i);
+				});
+				
+				li.appendChild(a);
+				ul.appendChild(li);
+			}
+			nav.appendChild(ul);
+			document.querySelector("#pagination").appendChild(nav);
+		}
+	}
+	
 	// 페이지 총 개수 표시
-	const renderTotalCount = keyword => {
+	const renderTotalCount = (keyword, page) => {
 		const pageCount = document.getElementById('page-count');
 		pageCount.textContent = "";
 		
 		const params = { bookName: keyword };
 		axios.get('/api/book/count', {params})
 		.then(function (response) {
-			pageCount.textContent = "전체: " + response.data;
+			const totalCount = response.data;
+			pageCount.textContent = "전체: " + totalCount;
+			renderPagination(totalCount, keyword, page);
 		})
 		.catch(function (error) {
 			console.error('Ajax 통신 오류');
@@ -98,18 +144,16 @@
 		});
 	};
 	
-	const search = (keyword) => {
-		const params = { bookName: keyword };
+	// 도서 검색 
+	const search = (keyword, page) => {
+		const params = { bookName: keyword, 'page':page };
 		axios.get('/api/book', {params})
 		.then(function (response) {
 			// 총 개수 표시
-			renderTotalCount(keyword);
+			renderTotalCount(keyword, page);
 			
 			// 검색 결과 영역 초기화
-			const area = document.getElementById('result-area');
-			while (area.firstChild) { 
-			    area.removeChild(area.firstChild);
-			}
+			resetElem('result-area');
 			
 			// 도서 검색 결과 렌더링
 			response.data.forEach(book => renderBook(book));
@@ -120,13 +164,22 @@
 		});	
 	}
 	
+	// onload
 	document.addEventListener("DOMContentLoaded", () => {
-		
 		// 검색 버튼 클릭시 이벤트
 		const button = document.getElementById("button-search");
 		button.addEventListener("click", () => {
 			const input = document.getElementById("input-search-keyword");
-			search(input.value);
+			search(input.value, 1);
+		});
+		
+		// 엔터키 입력시 이벤트
+		const input = document.getElementById("input-search-keyword");
+		input.addEventListener("keyup", (e) => {
+			if (e.keyCode === 13) {
+				e.preventDefault();
+				search(input.value, 1);
+			}
 		});
 		
 	});

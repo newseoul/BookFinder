@@ -32,9 +32,16 @@
 		
 		// 도서명
 		const title = document.createElement("h4");
-		cardBody.classList.add("card-title");
-		cardBody.classList.add("book-title");
-		title.textContent = book.bookName;
+		title.classList.add("card-title");
+		title.classList.add("book-title");
+		
+		const link = document.createElement("a");
+		link.textContent = book.bookName;
+		link.classList.add("link-secondary");
+		link.classList.add("link-book-name");
+		link.setAttribute("href", "/book/" + book.bookId);
+		
+		title.appendChild(link);
 		cardBody.appendChild(title);
 		
 		const cardText = document.createElement("div");
@@ -75,7 +82,7 @@
 		location.classList.add("text-wrap");
 		location.classList.add("border-end");
 		location.classList.add("item-border-right");
-		location.innerHTML = "도서위치: " +  ( typeof book.location === 'object' && book.location.locationName !== "" && book.location.locationName !== null ? book.location.locationName : "<small class='text-muted'>(알수없음)</small>" );  
+		location.innerHTML = "자료위치: " +  ( typeof book.location === 'object' && book.location.locationName !== "" && book.location.locationName !== null ? book.location.locationName : "<small class='text-muted'>(알수없음)</small>" );  
 		p2.appendChild(location);
 		
 		// 청구기호

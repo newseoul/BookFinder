@@ -1,7 +1,7 @@
 package com.newseoul.bookfinder.model;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -47,5 +47,9 @@ public class Book {
 	
 	public String getPublicationDate() {
 		return new SimpleDateFormat("yyyy-MM-dd").format(this.publicationDate);
+	}
+	
+	public void setPublicationDate(String publicationDate) throws ParseException {
+		this.publicationDate = new SimpleDateFormat("yyyy-MM-dd").parse(publicationDate);
 	}
 }

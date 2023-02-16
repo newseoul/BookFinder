@@ -7,13 +7,18 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.newseoul.bookfinder.model.Book;
+import com.newseoul.bookfinder.model.Location;
 import com.newseoul.bookfinder.repository.BookRepository;
+import com.newseoul.bookfinder.repository.LocationRepository;
 
 @Service
 public class BookServiceImpl implements BookService{
 	
 	@Autowired
 	private BookRepository bookRepository;
+	
+	@Autowired
+	private LocationRepository locationRepository;
 
 	@Override
 	public List<Book> getBookList(String keyword, String condition, int pageNo) {
@@ -57,6 +62,17 @@ public class BookServiceImpl implements BookService{
 	public void insertBook(Book book) {
 		bookRepository.save(book);
 		
+	}
+
+	@Override
+	public List<Location> getLocationList() {
+		return locationRepository.findAll();
+	}
+
+	@Override
+	public List<Book> getBookList(String name, int page) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

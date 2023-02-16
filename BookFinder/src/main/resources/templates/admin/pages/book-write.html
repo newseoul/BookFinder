@@ -5,11 +5,16 @@
 		<title>Insert title here</title>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 		<!-- <script th:src="@{/js/pages/admin/book-list.js}"></script> -->
-		<script>
+		<script>	 
 			(() => {
 				 const write = (formData) => {
-					axios.post('/api/book/insert', formData)
+					axios.post('/api/book/insert', formData,  {
+					    headers: {
+					        'Content-Type': 'multipart/form-data'
+					      }
+					  })
 					.then(function (response) {
+				
 						console.log("ajax 통신 성공...");
 					})
 					.catch(function (error) {
@@ -17,58 +22,27 @@
 					});	
 				}
 				 
-				 // 도서 위치 선택
-				 //'A', '소설/시/희곡'
-				 //'B', '만화/전문서적/경제경영/자기계발'
-				 //'C', '어린이/청소년/좋은부모/취미/건강/여행/인문/사회/역사/예술'
-				 //'D', '유아/어린이/외국어/외국도서'
-				 
-				/* if(== "A") {
-					 소설/시/희곡
-					 
-				 } else if( == "B") {
-					 만화/전문서적/경제경영/자기계발
-					 
-				 } */
-				 
-				/* const select = () => {
-					var sel = document.getElementById("locationId");
-					var option = document.createElement("option");
-					option.value = "A";
-					option.text = "소설/시/희곡";
-					option.value = "B";
-					option.text = "만화/전문서적/경제경영/자기계발";
-					
-					sel.add(option);
-				} */
-				
-				const select = document.getElementById("locationId");
-				const option = document.createElement("option");
-				switch(option) {
-					case 'A':
-						
-						break;
-						
-					
-				}
-				 
 				document.addEventListener("DOMContentLoaded", () => {
 					const button = document.getElementById("btn-register");
 					button.addEventListener("click", () => {
 						const formData = new FormData();
-						formDa
-						ta.append('bookName', document.getElementById("bookName").value); // 도서명
+						formData.append('bookName', document.getElementById("bookName").value); // 도서명
 						formData.append('author', document.getElementById("author").value); // 저자
 						formData.append('publisher', document.getElementById("publisher").value); // 출판사
 						formData.append('publicationDate', document.getElementById("publicationDate").value); // 출판일
 						
-						formData.append('locationId', getElementById("locationId").value); // 도서위치
-						formData.append('locationMemo', getElementById("locationMemo").value); // 도서 상세위치
-						formData.append('categoryId', getElementById("categoryId").value); // 분류ID
-						formData.append('displayStatus', getElementById("displayStatus").value); // 노출여부
-						formData.append('filename', getElementById("filename"), filename.value); // 도서 이미지
+						
+						formData.append('locationId', document.getElementById("locationId").value); // 도서위치
+						formData.append('locationMemo', document.getElementById("locationMemo").value); // 도서 상세위치
+						
+						formData.append('categoryId', document.getElementById("categoryId").value); // 분류ID
+						
+						const openChk = document.querySelector('input[name="openChk"]:checked').value;
+						formData.append('displayStatus', openChk); // 노출여부
+						formData.append('filename', document.getElementById("filename").files[0]); // 도서 이미지
 						
 						formData.append('bookDetail', document.getElementById("bookDetail").value); // 도서 상세(내용)
+						
 						write(formData);
 						
 						// 값 확인
@@ -104,7 +78,7 @@
 				</select>
 			</dd>
 			<dt>도서 상세위치</dt>
-			<dd><input type="text" id="locationMemo " name="locationMemo" /></dd>
+			<dd><input type="text" id="locationMemo" name="locationMemo" /></dd>
 			<dt>분류ID</dt>
 			<dd>
 				<input type="text" id="categoryId" name="categoryId" />
@@ -112,12 +86,15 @@
 			<dt>노출여부</dt>
 			<dd>
 				<label for="openY">Y</label>
-				<input type="radio" id="openY" name="openChk" checked="checked" />
+				<input type="radio" id="openY" name="openChk" value="1" checked="checked" />
 				<label for="openN">N</label>
-				<input type="radio" id="openN" name="openChk" />
+				<input type="radio" id="openN" name="openChk" value="0" />
 			</dd>
 			<dt>도서 이미지</dt>
-			<dd><input tpye="file" id="filename" name="filename" /></dd>
+			<dd>
+				<input tpye="file" id="filename" name="filename" />
+				<input type=submit value=Upload />
+			</dd>
 			<dt>도서 내용</dt>
 			<dd>
 				<textarea id="bookDetail" name="bookDetail"></textarea>

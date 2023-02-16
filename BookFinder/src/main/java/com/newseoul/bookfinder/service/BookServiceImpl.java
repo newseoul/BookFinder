@@ -16,10 +16,42 @@ public class BookServiceImpl implements BookService{
 	private BookRepository bookRepository;
 
 	@Override
-	public List<Book> getBookList(String bookName, int pageNo) {
-		return bookRepository.findByBookNameContainingOrderByBookNameAsc(
-					bookName, PageRequest.of(pageNo - 1, 10)
-				);
+	public List<Book> getBookList(String keyword, String condition, int pageNo) {
+		switch(condition) {
+			case "book_name":
+				return bookRepository.findByBookNameContainingOrderByBookNameAsc(
+						keyword, PageRequest.of(pageNo - 1, 15)
+					);
+			case "author":
+				return bookRepository.findByAuthorContainingOrderByBookNameAsc(
+						keyword, PageRequest.of(pageNo - 1, 15)
+					);
+			default:
+				return bookRepository.findByBookNameContainingOrAuthorContainingOrderByBookNameAsc(
+						keyword, keyword, PageRequest.of(pageNo - 1, 15) 
+					);
+		}
+		
+		
 	}
+
+	@Override
+	public long getBookCount(String keyword, String condition) {
+		switch(condition) {
+			case "book_name":
+				return bookRepository.countByBookNameContaining(keyword);
+			case "author":
+				return bookRepository.countByAuthorContaining(keyword);
+			default:
+				return bookRepository.countByBookNameContainingOrAuthorContaining(keyword, keyword);
+		}
+	}
+
+	@Override
+	public Book getBook(int bookId) {
+		return bookRepository.findById(bookId).orElse(null);
+	}
+	
+	
 
 }

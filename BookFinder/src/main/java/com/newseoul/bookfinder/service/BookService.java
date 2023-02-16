@@ -5,5 +5,7 @@ import java.util.List;
 import com.newseoul.bookfinder.model.Book;
 
 public interface BookService {
-	List<Book> getBookList(String name, int page);
+	List<Book> getBookList(String keyword, String condition, int page);
+	long getBookCount(String keyword, String condition);
+	Book getBook(int bookId);
 }

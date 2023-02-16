@@ -20,15 +20,17 @@ public class BookRestController {
 	
 	@GetMapping("")
 	public List<Book> list(
-				@RequestParam(defaultValue = "") String bookName, 
+				@RequestParam(defaultValue = "") String keyword,
+				@RequestParam(defaultValue = "") String condition,
 				@RequestParam(defaultValue = "1") Integer page
 			) {
-		return bookService.getBookList(bookName, page);
+		return bookService.getBookList(keyword, condition, page);
 	}
 	
 	@GetMapping("/count")
-	public long count(@RequestParam(defaultValue = "") String bookName) {
-		return bookService.getBookCount(bookName);
+	public long count(@RequestParam(defaultValue = "") String keyword,
+					  @RequestParam(defaultValue = "") String condition) {
+		return bookService.getBookCount(keyword, condition);
 	}
 	
 }

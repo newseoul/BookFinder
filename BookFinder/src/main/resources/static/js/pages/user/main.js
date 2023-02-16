@@ -92,7 +92,7 @@
 	};
 	
 	// 페이지네이션 렌더링
-	const renderPagination = (totalCount, keyword, page) => {
+	const renderPagination = (totalCount, keyword, condition, page) => {
 		// 페이지네이션 엘리멘트 초기화
 		resetElem('pagination');
 		
@@ -115,7 +115,7 @@
 				a.textContent = i;
 				a.setAttribute("href", '#');
 				a.addEventListener("click", () => {
-					search(keyword, i);
+					search(keyword, condition, i);
 				});
 				
 				li.appendChild(a);
@@ -127,16 +127,16 @@
 	}
 	
 	// 페이지 총 개수 표시
-	const renderTotalCount = (keyword, page) => {
+	const renderTotalCount = (keyword, condition, page) => {
 		const pageCount = document.getElementById('page-count');
 		pageCount.textContent = "";
 		
-		const params = { bookName: keyword };
+		const params = { keyword: keyword, 'condition':condition };
 		axios.get('/api/book/count', {params})
 		.then(function (response) {
 			const totalCount = response.data;
 			pageCount.textContent = "전체: " + totalCount;
-			renderPagination(totalCount, keyword, page);
+			renderPagination(totalCount, keyword, condition, page);
 		})
 		.catch(function (error) {
 			console.error('Ajax 통신 오류');
@@ -145,12 +145,13 @@
 	};
 	
 	// 도서 검색 
-	const search = (keyword, page) => {
-		const params = { bookName: keyword, 'page':page };
+	const search = (keyword, condition, page) => {
+		
+		const params = { keyword: keyword, 'condition':condition, 'page':page };
 		axios.get('/api/book', {params})
 		.then(function (response) {
 			// 총 개수 표시
-			renderTotalCount(keyword, page);
+			renderTotalCount(keyword, condition, page);
 			
 			// 검색 결과 영역 초기화
 			resetElem('result-area');
@@ -169,8 +170,10 @@
 		// 검색 버튼 클릭시 이벤트
 		const button = document.getElementById("button-search");
 		button.addEventListener("click", () => {
-			const input = document.getElementById("input-search-keyword");
-			search(input.value, 1);
+			const keyword = document.getElementById("input-search-keyword").value;
+			const select = document.getElementById("select-search-condition");
+			const condition =  select.options[select.selectedIndex].value;
+			search(keyword, condition, 1);
 		});
 		
 		// 엔터키 입력시 이벤트
@@ -178,7 +181,9 @@
 		input.addEventListener("keyup", (e) => {
 			if (e.keyCode === 13) {
 				e.preventDefault();
-				search(input.value, 1);
+				const select = document.getElementById("select-search-condition");
+				const condition =  select.options[select.selectedIndex].value;
+				search(input.value, condition, 1);
 			}
 		});
 		

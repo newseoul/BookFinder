@@ -1,0 +1,13 @@
+@charset "UTF-8";
+#layout-header {
+    height: 360px;
+    background-image: url(/images/books.jpg);
+    background-repeat: repeat;
+}
+#layout-content {
+    margin-top: 10px;
+    margin: 10px auto 0px auto;
+}
+.link-book-name {
+	text-decoration: none !important;
+}

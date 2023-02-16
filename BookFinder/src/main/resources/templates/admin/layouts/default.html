@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Title</title>
+    
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+	<link th:href="@{/css/layouts/admin/default.css}" rel="stylesheet">
 </head>
 <body>
+	<!--매 페이지 동일하게 표시할 상단영역-->
+	<div layout:fragment="header" th:replace="admin/fragments/default/header::header"></div>
 
+	<!--각 페이지마다 교체될 본문영역-->
+	<div layout:fragment="content" id="layout-content"></div>
+	
+	<!--매 페이지 동일하게 표시할 하단영역-->
+	<div layout:fragment="footer" th:replace="admin/fragments/default/footer::footer"></div>
+
+	<!--부트스트랩-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
 </body>
 </html>

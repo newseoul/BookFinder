@@ -8,10 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.newseoul.bookfinder.model.Book;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
-	List<Book> findByBookNameContainingOrAuthorContainingOrderByBookNameAsc(String bookName, String author, Pageable pageable);
-	List<Book> findByBookNameContainingOrderByBookNameAsc(String bookName, Pageable pageable);
-	List<Book> findByAuthorContainingOrderByBookNameAsc(String author, Pageable pageable);
-	long countByBookNameContainingOrAuthorContaining(String bookName, String author);
-	long countByAuthorContaining(String author);
-	long countByBookNameContaining(String keyword);
+	List<Book> findByBookNameContainingAndDisplayStatusEqualsOrderByBookNameAsc(String bookName, Integer displayStatus, Pageable pageable);
+	List<Book> findByAuthorContainingAndDisplayStatusEqualsOrderByBookNameAsc(String author, Integer displayStatus, Pageable pageable);
+	List<Book> findByBookNameContainingOrAuthorContainingAndDisplayStatusEqualsOrderByBookNameAsc(String bookName, String author, Integer displayStatus, Pageable pageable);
+	long countByAuthorContainingAndDisplayStatusEquals(String author, Integer displayStatus);
+	long countByBookNameContainingAndDisplayStatusEquals(String keyword, Integer displayStatus);
+	long countByBookNameContainingOrAuthorContainingAndDisplayStatusEquals(String bookName, String author, Integer displayStatus);
 }

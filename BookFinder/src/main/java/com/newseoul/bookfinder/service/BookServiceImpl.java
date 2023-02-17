@@ -19,16 +19,16 @@ public class BookServiceImpl implements BookService{
 	public List<Book> getBookList(String keyword, String condition, int pageNo) {
 		switch(condition) {
 			case "book_name":
-				return bookRepository.findByBookNameContainingOrderByBookNameAsc(
-						keyword, PageRequest.of(pageNo - 1, 15)
+				return bookRepository.findByBookNameContainingAndDisplayStatusEqualsOrderByBookNameAsc(
+						keyword, 1, PageRequest.of(pageNo - 1, 15)
 					);
 			case "author":
-				return bookRepository.findByAuthorContainingOrderByBookNameAsc(
-						keyword, PageRequest.of(pageNo - 1, 15)
+				return bookRepository.findByAuthorContainingAndDisplayStatusEqualsOrderByBookNameAsc(
+						keyword, 1, PageRequest.of(pageNo - 1, 15)
 					);
 			default:
-				return bookRepository.findByBookNameContainingOrAuthorContainingOrderByBookNameAsc(
-						keyword, keyword, PageRequest.of(pageNo - 1, 15) 
+				return bookRepository.findByBookNameContainingOrAuthorContainingAndDisplayStatusEqualsOrderByBookNameAsc(
+						keyword, keyword, 1, PageRequest.of(pageNo - 1, 15) 
 					);
 		}
 		
@@ -39,11 +39,11 @@ public class BookServiceImpl implements BookService{
 	public long getBookCount(String keyword, String condition) {
 		switch(condition) {
 			case "book_name":
-				return bookRepository.countByBookNameContaining(keyword);
+				return bookRepository.countByAuthorContainingAndDisplayStatusEquals(keyword, 1);
 			case "author":
-				return bookRepository.countByAuthorContaining(keyword);
+				return bookRepository.countByBookNameContainingAndDisplayStatusEquals(keyword, 1);
 			default:
-				return bookRepository.countByBookNameContainingOrAuthorContaining(keyword, keyword);
+				return bookRepository.countByBookNameContainingOrAuthorContainingAndDisplayStatusEquals(keyword, keyword, 1);
 		}
 	}
 

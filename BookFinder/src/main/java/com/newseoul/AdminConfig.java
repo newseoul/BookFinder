@@ -10,7 +10,7 @@ public class AdminConfig implements WebMvcConfigurer {
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
-		registry.addResourceHandler("/upload/**").addResourceLocations("C:\\Users\\A\\git\\BookFinder\\BookFinder\\src\\main\\resources\\public\\upload\\");
+		registry.addResourceHandler("/images/**").addResourceLocations("C:\\Users\\A\\git\\BookFinder\\BookFinder\\src\\main\\resources\\static\\images\\");
 	}
 	
 }

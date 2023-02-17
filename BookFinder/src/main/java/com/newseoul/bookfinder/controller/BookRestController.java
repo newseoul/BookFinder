@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.newseoul.bookfinder.model.Book;
+import com.newseoul.bookfinder.model.Category;
 import com.newseoul.bookfinder.model.Location;
 import com.newseoul.bookfinder.service.BookService;
 
@@ -45,29 +46,64 @@ public class BookRestController {
 		return bookService.getBook(bookId);
 	}
 	
-	// 글 등록
-	@RequestMapping("/insert")
-	public void insert(Book book, @RequestParam(required=false) MultipartFile filename, HttpServletRequest request) {
-		String filenameImg = "";
-		if (filename != null && !filename.isEmpty()) {
-			filenameImg = filename.getOriginalFilename();
-			try {
-				ServletContext application = request.getSession().getServletContext();
-				String path = application.getRealPath("/upload/images/");
-				filename.transferTo(new File(path + filenameImg));
-				
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-		book.setFilename(filenameImg);
+	// 도서 등록 - img
+	/*
+	 * @RequestMapping("/insert") public void insert(Book book,
+	 * 
+	 * @RequestParam(required=false) MultipartFile img, HttpServletRequest request)
+	 * {
+	 * 
+	 * String filename = ""; if (img != null && !img.isEmpty()) { filename =
+	 * img.getOriginalFilename(); try { ServletContext application =
+	 * request.getSession().getServletContext(); String path =
+	 * application.getRealPath("/images/"); img.transferTo(new File(path +
+	 * filename));
+	 * 
+	 * } catch (Exception e) { e.printStackTrace(); } } book.setFilename(filename);
+	 * bookService.insertBook(book); }
+	 */
+	 
+	
+	// 도서등록
+	@RequestMapping("/insert") 
+	public void insert(Book book) {
 		bookService.insertBook(book);
 	}
-	
+		
 	// 도서 위치
-	/*
-	 * @RequestMapping("/location") public List<Location> list() { return
-	 * bookService.getBookList(); }
-	 */
+	@GetMapping("/location")
+	public List<Location> locationList() {
+		return bookService.getLocationList();
+		
+	}
+	
+	// 도서 분류
+	@GetMapping("/category")
+	public List<Category> categoryList() {
+		return bookService.getCategoryList();
+	}
+		
+	// 도서 수정
+	@RequestMapping("/update")
+	public void update(Book book, @RequestParam(required=false) MultipartFile img, HttpServletRequest request) {
+		
+	String filename = "";
+	if (img != null && !img.isEmpty()) {
+		filename = img.getOriginalFilename();
+		try {
+			ServletContext application = request.getSession().getServletContext();
+			String path = application.getRealPath("/upload/images/");
+			img.transferTo(new File(path + filename));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	} else {
+		filename = bookService.getBook(book.getBookId()).getFilename();
+	}
+
+	book.setFilename(filename);
+		bookService.upDatetBook(book);
+	}
 	
 }

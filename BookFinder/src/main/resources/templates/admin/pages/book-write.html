@@ -4,61 +4,11 @@
 		<meta charset="UTF-8">
 		<title>Insert title here</title>
 		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-		<!-- <script th:src="@{/js/pages/admin/book-list.js}"></script> -->
-		<script>	 
-			(() => {
-				 const write = (formData) => {
-					axios.post('/api/book/insert', formData,  {
-					    headers: {
-					        'Content-Type': 'multipart/form-data'
-					      }
-					  })
-					.then(function (response) {
-				
-						console.log("ajax 통신 성공...");
-					})
-					.catch(function (error) {
-						console.log("ajax 통신 오류...");
-					});	
-				}
-				 
-				document.addEventListener("DOMContentLoaded", () => {
-					const button = document.getElementById("btn-register");
-					button.addEventListener("click", () => {
-						const formData = new FormData();
-						formData.append('bookName', document.getElementById("bookName").value); // 도서명
-						formData.append('author', document.getElementById("author").value); // 저자
-						formData.append('publisher', document.getElementById("publisher").value); // 출판사
-						formData.append('publicationDate', document.getElementById("publicationDate").value); // 출판일
-						
-						
-						formData.append('locationId', document.getElementById("locationId").value); // 도서위치
-						formData.append('locationMemo', document.getElementById("locationMemo").value); // 도서 상세위치
-						
-						formData.append('categoryId', document.getElementById("categoryId").value); // 분류ID
-						
-						const openChk = document.querySelector('input[name="openChk"]:checked').value;
-						formData.append('displayStatus', openChk); // 노출여부
-						formData.append('filename', document.getElementById("filename").files[0]); // 도서 이미지
-						
-						formData.append('bookDetail', document.getElementById("bookDetail").value); // 도서 상세(내용)
-						
-						write(formData);
-						
-						// 값 확인
-						for(const value of formData.values()) {
-							console.log(value)
-						}
-					}); // click
-				});
-				
-			})();
-		</script>
+		<script th:src="@{/js/pages/admin/book-write.js}"></script>
 	</head>
 
 	<body>
 		<h2>도서 등록</h2>
-		
 		<dl>
 			<dt>도서명</dt>
 			<dd><input type="text" id="bookName" name="bookName" /></dd>
@@ -71,17 +21,14 @@
 			<dt>도서 위치</dt>
 			<dd>
 				<select id="locationId" name="locationId">
-					<option value="A"></option>
-					<option value="B"></option>
-					<option value="C"></option>
-					<option value="D"></option>
+					<option>도서 위치</option>
 				</select>
 			</dd>
 			<dt>도서 상세위치</dt>
 			<dd><input type="text" id="locationMemo" name="locationMemo" /></dd>
-			<dt>분류ID</dt>
+			<dt>도서 분류</dt>
 			<dd>
-				<input type="text" id="categoryId" name="categoryId" />
+				<select id="categoryId" name="categoryId"></select>
 			</dd>
 			<dt>노출여부</dt>
 			<dd>
@@ -92,19 +39,16 @@
 			</dd>
 			<dt>도서 이미지</dt>
 			<dd>
-				<input tpye="file" id="filename" name="filename" />
-				<input type=submit value=Upload />
+				<input type="file" id="img" name="img" />
 			</dd>
 			<dt>도서 내용</dt>
 			<dd>
 				<textarea id="bookDetail" name="bookDetail"></textarea>
 			</dd>
 		</dl>
-		
 		<div class="btn-area">
 			<button type="button" id="btn-register">등록</button>
 			<button type="button" onclick="locationhref='../'">목록</button>
 		</div>
-		
 	</body>
 </html>

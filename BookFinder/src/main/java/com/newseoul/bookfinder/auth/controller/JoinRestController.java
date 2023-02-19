@@ -9,17 +9,28 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.newseoul.bookfinder.auth.model.UserAccount;
 import com.newseoul.bookfinder.auth.service.UserService;
+import com.newseoul.bookfinder.auth.validators.IsIdUnique;
 
 @RestController
 public class JoinRestController {
 	
 	@Autowired
-	UserService userService;
+	private UserService userService;
+	@Autowired
+	private IsIdUnique isIdUniqueValidator;
+	
+	
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.addValidators(isIdUniqueValidator);
+	}
 
 	@PostMapping(value="api/join")
 	public ResponseEntity<Map<String, Object>> join(@Validated UserAccount user, BindingResult bindingResult) {

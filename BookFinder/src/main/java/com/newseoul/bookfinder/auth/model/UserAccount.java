@@ -12,6 +12,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,13 +27,21 @@ import lombok.Setter;
 @Entity
 public class UserAccount {
 	@Id
+	@NotBlank
 	private String username;
+	@NotBlank
+	@Email
 	private String email;
+	@NotBlank
 	private String name;
+	@NotBlank
 	private String password;
 	@Transient
+	@NotBlank
 	private String confirmPassword;
+	@NotBlank
 	private String mobileCarrier;
+	@NotBlank
 	private String phoneNumber;
 	private String postalCode;
 	private String address;

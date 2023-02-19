@@ -17,24 +17,29 @@
 							<div class="form-group mt-3 mb-3">
 								<label for="input-username">아이디</label>
 								<input type="text" id="input-username" name="username" class="form-control" placeholder="아이디를 입력해주세요.">
+								<small class="form-text text-danger error-message" data-for="username"></small>
 							</div>
 							<div class="form-group mt-3 mb-3">
 								<label for="input-password">비밀번호</label>
 								<input type="password" id="input-password" name="password" class="form-control" placeholder="비밀번호를 입력해주세요.">
-								<input type="password" id="input-password-confirm" name="confirm_password" class="form-control mt-2" placeholder="비밀번호를 한번 더 입력해주세요.">
+								<small class="form-text text-danger error-message" data-for="password"></small>
+								<input type="password" id="input-password-confirm" name="confirmPassword" class="form-control mt-2" placeholder="비밀번호를 한번 더 입력해주세요.">
+								<small class="form-text text-danger error-message" data-for="confirmPassword"></small>
 							</div>
 							<div class="form-group mt-3 mb-3">
 								<label for="input-name">이름</label>
 								<input type="text" id="input-name" name="name" class="form-control" placeholder="이름을 입력해주세요.">
+								<small class="form-text text-danger error-message" data-for="name"></small>
 							</div>
 							<div class="form-group mt-3 mb-3">
 								<label for="input-email">이메일</label>
 								<input type="text" id="input-email" name="email" class="form-control" placeholder="이메일 주소를 입력해주세요.">
+								<small class="form-text text-danger error-message" data-for="email">123123</small>
 							</div>
 							<div class="form-group mt-3 mb-3">
 								<label for="select-mobile-carrier">연락처</label>
 								<div class="input-group">
-									<select id="select-mobile-carrier" name="mobile_carrier" class="form-select">
+									<select id="select-mobile-carrier" name="mobileCarrier" class="form-select">
 										<option value="skt" selected>SKT</option>
 										<option value="kt">KT</option>
 										<option value="lgu+">LGU+</option>
@@ -42,8 +47,10 @@
 										<option value="mvno_kt">알뜰폰KT</option>
 										<option value="mvno_lgu+">알뜰폰LGU+</option>
 									</select>
-									<input type="text" id="input-phone-number" name="phone_number" class="form-control" placeholder="휴대폰 번호">
+									<input type="text" id="input-phone-number" name="phoneNumber" class="form-control" placeholder="휴대폰 번호">
 								</div>
+								<small class="form-text text-danger error-message" data-for="mobileCarrier"></small>
+								<small class="form-text text-danger error-message" data-for="phoneNumber"></small>
 							</div>
 						    <button type="submit" class="btn btn-primary w-100 mt-2">회원가입</button>
 						    <a href="/login" class="btn btn-warning w-100 mt-2">로그인</a>

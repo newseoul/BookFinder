@@ -37,7 +37,6 @@ public class UserAccount {
 	@NotBlank
 	private String password;
 	@Transient
-	@NotBlank
 	private String confirmPassword;
 	@NotBlank
 	private String mobileCarrier;

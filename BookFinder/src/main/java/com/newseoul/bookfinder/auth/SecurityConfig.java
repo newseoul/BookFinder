@@ -14,7 +14,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 //		.authorizeHttpRequests()
-//		.antMatchers("/", "/login").permitAll()
+//		.antMatchers("/book/**").hasRole("ADMIN")
 //		.anyRequest().authenticated()
 //		.and()
 		.formLogin()

@@ -6,4 +6,5 @@ import com.newseoul.bookfinder.auth.model.UserAccount;
 
 public interface UserService {
 	List<UserAccount> getUserList();
+	UserAccount createUser(UserAccount user);
 }

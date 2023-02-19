@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,13 +23,14 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@Table(name="USER_ACCOUNT")
 public class UserAccount {
 	@Id
 	private String username;
 	private String email;
 	private String name;
 	private String password;
+	@Transient
+	private String confirmPassword;
 	private String mobileCarrier;
 	private String phoneNumber;
 	private String postalCode;

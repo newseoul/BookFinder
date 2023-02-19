@@ -1,12 +1,12 @@
 (() => {
 	
-	// 페이지 렌더링
+	// page rendering
 	const renderPage = (bookId) => {
 		axios.get(`/api/book/${bookId}`)
 		.then(response => {
 			const book = response.data;
 			
-			// 도서 이미지
+			// book image
 			const divThumbnail = document.querySelector("#div-book-thumbnail");
 			while (divThumbnail.firstChild) { 
 			    divThumbnail.removeChild(divThumbnail.firstChild);
@@ -21,7 +21,7 @@
 			}
 			divThumbnail.appendChild(img);
 			
-			// 도서 속성
+			// book attributes
 			document.querySelector("#title-book-name").textContent = book.bookName;
 			document.querySelector("#li-author").textContent = "저자: " +  ( book.author !== "" && book.author !== null ? book.author : "" );
 			document.querySelector("#li-publisher").textContent = "출판사: " +  ( book.publisher !== "" && book.publisher !== null ? book.publisher : "" );

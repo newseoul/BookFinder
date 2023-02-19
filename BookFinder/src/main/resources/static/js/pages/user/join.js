@@ -12,6 +12,7 @@
 			axios.post('/api/join', fd)
 			.then(response => {
 				console.log(response);
+				// window.location.href = "/";
 			})
 			.catch(error => {
 				console.error('Ajax 통신 오류');

@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.newseoul.bookfinder.auth.model.UserAccount;
 import com.newseoul.bookfinder.auth.service.UserService;
 import com.newseoul.bookfinder.auth.validators.ConfirmPassword;
+import com.newseoul.bookfinder.auth.validators.IsEmailUnique;
 import com.newseoul.bookfinder.auth.validators.IsIdUnique;
+import com.newseoul.bookfinder.auth.validators.IsPhoneNumberUnique;
 
 @RestController
 public class JoinRestController {
@@ -28,12 +30,18 @@ public class JoinRestController {
 	private IsIdUnique isIdUniqueValidator;
 	@Autowired
 	private ConfirmPassword confirmPasswordValidator;
+	@Autowired
+	private IsEmailUnique isEmailUniqueValidator;
+	@Autowired
+	private IsPhoneNumberUnique isPhoneNumberUnique;
 	
 	
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		binder.addValidators(isIdUniqueValidator);
 		binder.addValidators(confirmPasswordValidator);
+		binder.addValidators(isEmailUniqueValidator);
+		binder.addValidators(isPhoneNumberUnique);
 	}
 
 	@PostMapping(value="api/join")

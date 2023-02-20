@@ -8,4 +8,5 @@ public interface UserService {
 	List<UserAccount> getUserList(String keyword, int page);
 	UserAccount createUser(UserAccount user);
 	long getUserCount();
+	UserAccount getUser(String username);
 }

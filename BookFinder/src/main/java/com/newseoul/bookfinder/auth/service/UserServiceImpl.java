@@ -51,4 +51,13 @@ public class UserServiceImpl implements UserService {
 		return userRepository.countBy();
 	}
 
+	@Override
+	public UserAccount getUser(String username) {
+		UserAccount user = userRepository.findById(username).orElse(null);
+		user.setPassword("********");
+		return user;
+	}
+	
+	
+
 }

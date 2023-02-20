@@ -4,7 +4,6 @@
 	const renderErrors = (errors) => {
 		Object.keys(errors).forEach(
 			(field) => {
-				console.log(field);
 				const message = errors[field];
 				const element = document.querySelector(`.error-message[data-for='${field}']`);
 				element.textContent = message;

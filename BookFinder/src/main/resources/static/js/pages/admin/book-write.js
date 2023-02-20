@@ -9,7 +9,7 @@
 			elem.removeChild(elem.firstChild);
 		}
 		
-		axios.get('/api/admin/category')
+		axios.get('/api/book/category')
 		.then(function (response) {
 			const placeholder = document.createElement('option');
 			placeholder.textContent = "도서 분류를 선택해주세요";
@@ -39,7 +39,7 @@
 			elem.removeChild(elem.firstChild);
 		}
 		
-		axios.get('/api/admin/location')
+		axios.get('/api/book/location')
 		.then(function (response) {
 			const placeholder = document.createElement('option');
 			placeholder.textContent = "도서 위치를 선택해주세요";
@@ -61,16 +61,16 @@
 	
 	// 도서 등록
 	const write = (formData) => {
-		axios.post('/api/admin/insert', formData, {
+		axios.post('/api/book', formData, {
 		    headers: {
 		        'Content-Type': 'multipart/form-data'
 		      }
 		  })
 		.then(function (response) {
-			console.log('Ajax 통신 성공 - inset');
+			console.log('Ajax 통신 성공 - insert');
 		})
 		.catch(function (error) {
-			console.error('Ajax 통신 오류 - inset');
+			console.error('Ajax 통신 오류 - insert');
 		});	
 	};
 	 
@@ -83,14 +83,18 @@
 			formData.append('publisher', document.getElementById("publisher").value); // 출판사
 			formData.append('publicationDate', document.getElementById("publicationDate").value); // 출판일
 			
-			if(locationId !== null && typeof locationId === 'number') {
-				formData.append('locationId', document.getElementById("locationId").value); 
+			const locationIdElem = document.getElementById("locationId");
+			const locationId = locationIdElem.options[locationIdElem.selectedIndex].value;
+			if(locationId !== null && typeof locationId === 'string') {
+				formData.append('locationId', locationId); 
 			} // 도서위치
 			
 			formData.append('locationMemo', document.getElementById("locationMemo").value); // 도서 상세위치
 			
-			if(categoryId !== null && typeof categoryId === 'number') {
-				formData.append('categoryId', document.getElementById("categoryId").value);
+			const categoryIdElem = document.getElementById("categoryId");
+			const categoryId = categoryIdElem.options[categoryIdElem.selectedIndex].value;
+			if(categoryId !== null && typeof categoryId === 'string') {
+				formData.append('categoryId', categoryId);
 			} // 분류ID
 			
 			// 노출여부
@@ -99,6 +103,9 @@
 	
 			formData.append('img', document.getElementById("filename").files[0]); // 도서 이미지
 			formData.append('bookDetail', document.getElementById("bookDetail").value); // 도서 상세(내용)
+			
+			const csrfElem = document.getElementById("csrfToken");
+			formData.append(csrfElem.getAttribute('name'), csrfElem.value);
 			
 			write(formData);
 			

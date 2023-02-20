@@ -1,4 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <div th:fragment="header" id="layout-header"></div>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extra/spring-security">
+    <div th:fragment="header" id="layout-header">
+    	<div class="fs-1 text-end pe-3">
+	    	<a sec:authorize="isAnonymous()" class="btn btn-dark" href="/login">
+		    	<i class="bi bi-box-arrow-in-right"></i>    	
+	    	</a>
+	    	
+	    	<form sec:authorize="isAuthenticated()" th:action="@{logout}"  method="post">
+	    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+		    	<button type="submit" class="btn btn-dark">
+			    	<i class="bi bi-box-arrow-right"></i>    	
+		    	</button>
+	    	</form>
+    	</div>
+    </div>
 </html>

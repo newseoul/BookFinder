@@ -10,10 +10,4 @@ public interface BookService {
 	List<Book> getBookList(String keyword, String condition, int page);
 	long getBookCount(String keyword, String condition);
 	Book getBook(int bookId);
-	
-	void insertBook(Book book); // 도서 등록
-	List<Location> getLocationList(); // 도서 위치
-	List<Category> getCategoryList(); // 도서 분류
-	void upDatetBook(Book book); // 도서 수정
-	
 }

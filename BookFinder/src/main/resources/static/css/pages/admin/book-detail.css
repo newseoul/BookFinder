@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+/* form style */
+.write-form:after {display: block; clear:both; content:''}
+.write-form dt {float:left; width:12%; height:2.38rem; font-size:0.9rem; line-height:2.38rem}
+.write-form dd {float:left; width:calc(38% - 20px); min-height:2.38rem; margin-right:20px; line-height:2.38rem}
+.write-form dd .form-check-inline {line-height:1.3rem}
+
+/* media query */
+@media only screen and (max-width: 530px) and (min-width: 320px) {
+	.write-form dt {width:17%}
+	.write-form dd {width:calc(33% - 5px); margin-right:5px;}
+}

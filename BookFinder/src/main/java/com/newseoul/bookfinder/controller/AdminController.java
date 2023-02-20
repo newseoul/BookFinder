@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
 
 	@GetMapping
-	public String adminIndex(Model model) {
+	public String index(Model model) {
 		return "admin/pages/book-list";
 	}
 }

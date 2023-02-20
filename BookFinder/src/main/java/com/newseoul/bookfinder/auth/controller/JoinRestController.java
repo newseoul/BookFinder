@@ -19,6 +19,7 @@ import com.newseoul.bookfinder.auth.service.UserService;
 import com.newseoul.bookfinder.auth.validators.ConfirmPassword;
 import com.newseoul.bookfinder.auth.validators.IsEmailUnique;
 import com.newseoul.bookfinder.auth.validators.IsIdUnique;
+import com.newseoul.bookfinder.auth.validators.IsPhoneNumberUnique;
 
 @RestController
 public class JoinRestController {
@@ -31,6 +32,8 @@ public class JoinRestController {
 	private ConfirmPassword confirmPasswordValidator;
 	@Autowired
 	private IsEmailUnique isEmailUniqueValidator;
+	@Autowired
+	private IsPhoneNumberUnique isPhoneNumberUnique;
 	
 	
 	@InitBinder
@@ -38,6 +41,7 @@ public class JoinRestController {
 		binder.addValidators(isIdUniqueValidator);
 		binder.addValidators(confirmPasswordValidator);
 		binder.addValidators(isEmailUniqueValidator);
+		binder.addValidators(isPhoneNumberUnique);
 	}
 
 	@PostMapping(value="api/join")

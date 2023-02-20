@@ -15,4 +15,5 @@ public interface UserRepository extends JpaRepository<UserAccount, String> {
 	@Query("SELECT u from UserAccount u WHERE (u.username like %:keyword% or u.email like %:keyword% or u.name like %:keyword% or phoneNumber like %:keyword%) order by u.username asc")
 	List<UserAccount> findByUsernameContainingOrEmailContainingOrNameContainingOrderByUsernameAsc(@Param("keyword") String keyword, Pageable pageable);
 	boolean existsByEmail(String email);
+	boolean existsByPhoneNumber(String phoneNumber);
 }

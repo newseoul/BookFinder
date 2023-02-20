@@ -12,6 +12,7 @@
 	
 	<body>
 		<div layout:fragment="content" id="layout-content">
+			<input id="csrfToken" type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 			<input type="hidden" id="input-book-id" th:value="${bookId}">
 			<input type="hidden" id="beforeImg">
 			<div class="container">

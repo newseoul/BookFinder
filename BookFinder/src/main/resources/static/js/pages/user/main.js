@@ -153,15 +153,14 @@
 	
 	// 도서 검색 
 	const search = (keyword, condition, page) => {
-		
+		// 검색 결과 영역 초기화
+		resetElem('result-area');
+			
 		const params = { keyword: keyword, 'condition':condition, 'page':page };
 		axios.get('/api/book', {params})
 		.then(function (response) {
 			// 총 개수 표시
 			renderTotalCount(keyword, condition, page);
-			
-			// 검색 결과 영역 초기화
-			resetElem('result-area');
 			
 			// 도서 검색 결과 렌더링
 			response.data.forEach(book => renderBook(book));

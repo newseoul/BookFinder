@@ -1,5 +1,6 @@
 package com.newseoul.bookfinder.service;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.newseoul.bookfinder.model.Book;
+import com.newseoul.bookfinder.model.Category;
+import com.newseoul.bookfinder.model.Location;
 import com.newseoul.bookfinder.repository.BookRepository;
+import com.newseoul.bookfinder.repository.CategoryRepository;
+import com.newseoul.bookfinder.repository.LocationRepository;
 
 @Service
 public class BookServiceImpl implements BookService{
@@ -51,7 +56,4 @@ public class BookServiceImpl implements BookService{
 	public Book getBook(int bookId) {
 		return bookRepository.findById(bookId).orElse(null);
 	}
-	
-	
-
 }

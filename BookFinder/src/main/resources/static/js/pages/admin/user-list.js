@@ -62,7 +62,11 @@
 		const row = document.createElement("tr");
 		
 		const username = document.createElement("td");
-		username.textContent = user.username;
+		const userLink = document.createElement("a");
+		userLink.classList.add("text-primary");
+		userLink.setAttribute("href", `/admin/user/${user.username}`);
+		userLink.textContent = user.username;
+		username.appendChild(userLink);
 		row.appendChild(username);
 		
 		const email = document.createElement("td");

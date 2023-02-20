@@ -106,14 +106,12 @@ public class BookServiceImpl implements BookService{
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		System.out.println(locationId);
 		if (locationId != null && locationId > 0) {
 			Location location = new Location();
 			location.setLocationId(locationId);
 			bookToUpdate.setLocation(location);
 		}
 		bookToUpdate.setLocationMemo(book.getLocationMemo());
-		System.out.println(categoryId);
 		if (categoryId != null && categoryId > 0) {
 			Category category = new Category();
 			category.setCategoryId(categoryId);

@@ -13,9 +13,4 @@ public class AdminController {
 	public String index(Model model) {
 		return "admin/pages/book-list";
 	}
-	
-	@GetMapping("/rental")
-	public String rentalList() {
-		return "admin/pages/rental-list"; 
-	}
 }

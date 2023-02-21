@@ -36,6 +36,7 @@ public class Book {
 	private String locationMemo;
 	private String filename;
 	private int displayStatus;
+	private String rentalStatus;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "location_id")

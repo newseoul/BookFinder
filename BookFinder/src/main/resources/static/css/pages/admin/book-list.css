@@ -33,5 +33,22 @@
 	cursor: pointer;
 }
 
+.book-count-area {
+	display:inline-block;
+	width:180px;
+	margin-top:10px;
+	margin-bottom:25px;
+}
+
+.book-filter-area {
+	display:inline-block;
+	margin-top:10px;
+	margin-bottom:25px;
+}
+
+.book-add-area {
+	float:right;
+}
+
 
 

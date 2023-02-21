@@ -20,12 +20,23 @@
   					<button id="button-search" class="btn btn-outline-secondary" type="button">검색</button>
 				</div>
 	    	</div>
-	    	<div align = "right">
+			
+			<div class ="book-count-area">
+				<h5 id="page-count"></h5>
+			</div>
+			<div class ="book-filter-area">
+				<form>
+				  <select name="language" >
+				    <option value="none">=== 조건검색 ===</option>
+				    <option value="korean" selected>전체보기</option>
+				    <option value="english">대출중</option>
+				    <option value="chinese">대출가능</option>
+				  </select>
+				</form>
+	    	</div>
+	    	<div class ="book-add-area">
 				<button class = "book-add" type="button" onclick="location.href='/admin/book/write' ">도서등록</button>
 			</div>
-	    	
-
-	    	<h5 id="page-count" class="mb-0 mt-3"></h5>
 	    	<div class="row">
 				<div class="col-md-12">
 					<table class="table">

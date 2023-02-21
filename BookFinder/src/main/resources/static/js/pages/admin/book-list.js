@@ -44,6 +44,16 @@
 				cellPublicationDate.textContent = book.publicationDate;
 				row.appendChild(cellPublicationDate);
 				
+				// 행의 여섯번째 열-대출여부
+				const cellRentalStatus = document.createElement("td");
+				//cellRentalStatus.textContent = book.rentalStatus;
+				if (book.rentalStatus == "rentable"){
+					cellRentalStatus.textContent = "대출가능";
+				} else {
+					cellRentalStatus.textContent = "대출중";
+				}
+				row.appendChild(cellRentalStatus);
+				
 				// 행의 여섯번째 열-상세정보
 				//const cellDetailBook = document.createElement("td");
 				//cellDetailBook.innerHTML = "<span style='color:blue'>상세정보보기</span>"

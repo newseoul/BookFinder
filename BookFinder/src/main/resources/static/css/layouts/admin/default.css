@@ -1,13 +1,24 @@
 @charset "UTF-8";
-#layout-header {
-    height: 360px;
-    background-image: url(/images/books.jpg);
-    background-repeat: repeat;
+#layout-header ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333333;
 }
-#layout-content {
-    margin-top: 10px;
-    margin: 10px auto 0px auto;
+
+#layout-header li {
+  float: left;
 }
-.link-book-name {
-	text-decoration: none !important;
+
+#layout-header li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px;
+  text-decoration: none;
+}
+
+#layout-header li a:hover {
+  background-color: #111111;
 }

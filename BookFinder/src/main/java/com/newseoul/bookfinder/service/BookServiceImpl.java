@@ -51,9 +51,9 @@ public class BookServiceImpl implements BookService{
 	public long getBookCount(String keyword, String condition) {
 		switch(condition) {
 			case "book_name":
-				return bookRepository.countByAuthorContainingAndDisplayStatusEquals(keyword, 1);
-			case "author":
 				return bookRepository.countByBookNameContainingAndDisplayStatusEquals(keyword, 1);
+			case "author":
+				return bookRepository.countByAuthorContainingAndDisplayStatusEquals(keyword, 1);
 			default:
 				return bookRepository.countByBookNameContainingOrAuthorContainingAndDisplayStatusEquals(keyword, keyword, 1);
 		}

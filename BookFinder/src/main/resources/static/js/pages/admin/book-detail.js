@@ -102,6 +102,7 @@
 		  })
 		.then(function (response) {
 			console.log('Ajax 통신 성공 - update');
+			location.href = "/admin";
 		})
 		.catch(function (error) {
 			console.error('Ajax 통신 오류 - update');

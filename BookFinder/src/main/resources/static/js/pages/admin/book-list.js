@@ -21,8 +21,13 @@
 				
 				// 행의 두번째 열-도서명
 				const cellBookName = document.createElement("td");
-				cellBookName.textContent = book.bookName;
+				//cellBookName.textContent = book.bookName;
 				row.appendChild(cellBookName);
+				
+				const link = document.createElement("a");
+				link.textContent = book.bookName;
+				link.setAttribute("href", "admin/book/" + book.bookId);
+				cellBookName.appendChild(link);
 				
 				// 행의 세번째 열-저자
 				const cellAuthor = document.createElement("td");
@@ -40,17 +45,17 @@
 				row.appendChild(cellPublicationDate);
 				
 				// 행의 여섯번째 열-상세정보
-				const cellDetailBook = document.createElement("td");
+				//const cellDetailBook = document.createElement("td");
 				//cellDetailBook.innerHTML = "<span style='color:blue'>상세정보보기</span>"
-				row.appendChild(cellDetailBook);
+				//row.appendChild(cellDetailBook);
 				
-				const link = document.createElement("a");
-				link.innerHTML = "<td style='color:blue'>상세정보보기</td>"
-				link.classList.add("link-secondary");
-				link.classList.add("link-book-name");
-				link.setAttribute("href", "/book/" + book.bookId);
+				//const link = document.createElement("a");
+				//link.innerHTML = "<td style='color:blue'>상세정보보기</td>"
+				//link.classList.add("link-secondary");
+				//link.classList.add("link-book-name");
+				//link.setAttribute("href", "/book/" + book.bookId);
 				
-				cellDetailBook.appendChild(link);
+				//cellDetailBook.appendChild(link);
 				
 				const target = document.getElementById("target");
 				target.appendChild(row);

@@ -1,0 +1,37 @@
+@charset "UTF-8";
+#input-search-keyword {
+    flex: 10 0 auto;
+}
+#result-area {
+	margin-top: 15px;
+}
+.book-row {
+	margin-top:5px;
+	margin-bottom:5px;
+}
+.book-thumbnail {
+	width: 150px;
+	height:200px;
+}
+.book-title {
+	margin-top:45px;	
+}
+.item-border-right {
+	padding-right:6px;
+	margin-right:6px;	
+}
+
+.book-add {
+	background-color: rgb(77, 77, 77);
+	border: none;
+	color: white;
+	padding: 7px 30px;
+	text-align: center;
+	font-size: 16px;
+	display: inline-block;
+	margin:4px 2px;
+	cursor: pointer;
+}
+
+
+

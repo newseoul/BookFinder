@@ -1,4 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <div th:fragment="header" id="layout-header"></div>
+    <div th:fragment="header" id="layout-header">
+		<ul>
+		  <li><a href="/">Home</a></li>
+		  <li><a href="/admin">도서관리</a></li>
+		  <li><a href="/admin/user">회원관리</a></li>
+		</ul>
+	</div>
 </html>

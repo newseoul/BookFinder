@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.newseoul.bookfinder.auth.model.UserAccount;
 
 import lombok.AllArgsConstructor;
@@ -35,12 +36,14 @@ public class BookRental {
 	private Date returnDueDate;
 	private Date returnDate;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "book_id")
+	@JsonIgnore
 	private Book book;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "username")
+	@JsonIgnore
 	private UserAccount userAccount;
 	
 	public String getRentalDate() {

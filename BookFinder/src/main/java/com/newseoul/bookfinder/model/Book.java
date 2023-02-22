@@ -3,7 +3,9 @@ package com.newseoul.bookfinder.model;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,7 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +41,11 @@ public class Book {
 	private String locationMemo;
 	private String filename;
 	private int displayStatus;
-	private String rentalStatus;
+	
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@JoinColumn(name="book_id")
+	@JsonIgnore
+	private List<BookRental> bookRentalList;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "location_id")

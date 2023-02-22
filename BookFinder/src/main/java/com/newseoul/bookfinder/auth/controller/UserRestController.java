@@ -3,6 +3,8 @@ package com.newseoul.bookfinder.auth.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newseoul.bookfinder.auth.model.UserAccount;
 import com.newseoul.bookfinder.auth.service.UserService;
+import com.newseoul.bookfinder.model.BookRental;
 
 @RestController
 @RequestMapping(value="api/user")
@@ -35,5 +38,10 @@ public class UserRestController {
 	@GetMapping("{username}")
 	public UserAccount read(@PathVariable String username) {
 		return userService.getUser(username);
+	}
+	
+	@GetMapping("{username}/rental")
+	public List<BookRental> rentalList(@PathVariable String username) {
+		return userService.getBookRentalList(username);
 	}
 }

@@ -2,18 +2,23 @@ package com.newseoul.bookfinder.auth.model;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.newseoul.bookfinder.model.BookRental;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -46,7 +51,13 @@ public class UserAccount {
 	private String address;
 	private String detailAddress;
 	
-	@ManyToMany(fetch = FetchType.EAGER)
+	// m
+	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
+	@JoinColumn(name="username")
+	@JsonIgnore
+	private List<BookRental> bookRentalList;
+	
+	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name="user_account_role", joinColumns = @JoinColumn(name = "username"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();

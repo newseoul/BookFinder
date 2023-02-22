@@ -15,6 +15,7 @@ import com.newseoul.bookfinder.auth.model.Role;
 import com.newseoul.bookfinder.auth.model.UserAccount;
 import com.newseoul.bookfinder.auth.repository.RoleRepository;
 import com.newseoul.bookfinder.auth.repository.UserRepository;
+import com.newseoul.bookfinder.model.BookRental;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -57,7 +58,12 @@ public class UserServiceImpl implements UserService {
 		user.setPassword("********");
 		return user;
 	}
-	
-	
+
+	@Override
+	public List<BookRental> getBookRentalList(String username) {
+		UserAccount user = this.getUser(username);
+		return user.getBookRentalList();
+	}
+
 
 }

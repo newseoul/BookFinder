@@ -115,7 +115,7 @@
 		const pageCount = document.getElementById('page-count');
 		pageCount.textContent = "";
 		
-		const params = { keyword: keyword, 'condition':condition };
+		const params = { keyword: keyword, 'rentalStatus':rentalStatus, 'condition':condition };
 		axios.get('/api/book/count', {params})
 		.then(function (response) {
 			const totalCount = response.data;

@@ -38,8 +38,10 @@ public class BookRestController {
 
 	@GetMapping("/count")
 	public long count(@RequestParam(defaultValue = "") String keyword,
-			@RequestParam(defaultValue = "") String condition) {
-		return bookService.getBookCount(keyword, condition);
+			@RequestParam(defaultValue = "") String condition,
+			// 전체보기:"", 대여가능:"rentable", 대여중:"on_rental", 연체중:"overdue")
+			@RequestParam(defaultValue = "") String rentalStatus) {
+		return bookService.getBookCount(keyword, rentalStatus, condition);
 	}
 
 	@GetMapping("/{bookId}")

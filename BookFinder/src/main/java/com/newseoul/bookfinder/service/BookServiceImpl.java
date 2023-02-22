@@ -51,9 +51,15 @@ public class BookServiceImpl implements BookService{
 			switch(condition) {
 				// 대출 가능 여부가 있으면서 "도서명" 선택했을 때 이쪽으로 감
 				case "book_name":
+					return bookRepository.findByBookNameContainingAndRentalStatusEqualsAndDisplayStatusEqualsOrderByBookNameAsc(
+							keyword, rentalStatus, 1, PageRequest.of(pageNo - 1, 15) 
+					);
 					
 				// 대출 가능 여부가 있으면서 "저자" 선택했을 때 이쪽으로 감
 				case "author":
+					return bookRepository.findByAuthorContainingAndRentalStatusEqualsAndDisplayStatusEqualsOrderByBookNameAsc(
+							keyword, rentalStatus, 1, PageRequest.of(pageNo - 1, 15) 
+					);
 					
 				// 대출 가능 여부가 있으면서 "전체" 선택했을 때 이쪽으로 감
 				default:
@@ -64,20 +70,30 @@ public class BookServiceImpl implements BookService{
 			
 		}
 		
-		
-		
-		
 	}
 
 	@Override
-	public long getBookCount(String keyword, String condition) {
-		switch(condition) {
-			case "book_name":
-				return bookRepository.countByBookNameContainingAndDisplayStatusEquals(keyword, 1);
-			case "author":
-				return bookRepository.countByAuthorContainingAndDisplayStatusEquals(keyword, 1);
-			default:
-				return bookRepository.countByBookNameContainingOrAuthorContainingAndDisplayStatusEquals(keyword, keyword, 1);
+	public long getBookCount(String keyword, String rentalStatus, String condition) {
+		// 도서 대출 여부가 빈값일 때
+		if(rentalStatus.equals("")) {
+			switch(condition) {
+				case "book_name":
+					return bookRepository.countByBookNameContainingAndDisplayStatusEquals(keyword, 1);
+				case "author":
+					return bookRepository.countByAuthorContainingAndDisplayStatusEquals(keyword, 1);
+				default:
+					return bookRepository.countByBookNameContainingOrAuthorContainingAndDisplayStatusEquals(keyword, keyword, 1);
+			}
+		} else {
+			
+			switch(condition) {
+				case "book_name":
+					return bookRepository.countByBookNameContainingAndRentalStatusEqualsAndDisplayStatusEquals(keyword,rentalStatus, 1);
+				case "author":
+					return bookRepository.countByAuthorContainingAndRentalStatusEqualsAndDisplayStatusEquals(keyword,rentalStatus, 1);
+				default :
+					return bookRepository.countByBookNameContainingOrAuthorContainingAndRentalStatusEqualsAndDisplayStatusEqualsOrderByBookNameAsc(keyword, keyword,rentalStatus, 1);
+			}
 		}
 	}
 

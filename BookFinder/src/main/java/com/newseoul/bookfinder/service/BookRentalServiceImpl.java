@@ -17,7 +17,7 @@ public class BookRentalServiceImpl implements BookRentalService {
 
 	@Override
 	public List<BookRental> getBookRentalList() {
-		List<BookRental> bookRentalList = bookRentalRepository.findAll();
+		List<BookRental> bookRentalList = bookRentalRepository.findAllByOrderByRentalIdDesc();
 		return bookRentalList.stream()
 		.map(bookRental -> { bookRental.getUserAccount().setPassword("*******"); return bookRental; })
 		.collect(Collectors.toList());

@@ -42,8 +42,7 @@ public class Book {
 	private String filename;
 	private int displayStatus;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-	@JoinColumn(name="book_id")
+	@OneToMany(mappedBy = "book")
 	@JsonIgnore
 	private List<BookRental> bookRentalList;
 	

@@ -1,7 +1,9 @@
 package com.newseoul.bookfinder.auth.service;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -15,6 +17,7 @@ import com.newseoul.bookfinder.auth.model.Role;
 import com.newseoul.bookfinder.auth.model.UserAccount;
 import com.newseoul.bookfinder.auth.repository.RoleRepository;
 import com.newseoul.bookfinder.auth.repository.UserRepository;
+import com.newseoul.bookfinder.model.Book;
 import com.newseoul.bookfinder.model.BookRental;
 
 @Service
@@ -60,9 +63,19 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<BookRental> getBookRentalList(String username) {
-		UserAccount user = this.getUser(username);
-		return user.getBookRentalList();
+	public List<Map<String, String>> getBookRentalList(String username) {
+		return this.getUser(username).getBookRentalList().stream().map(bookRental -> {
+			Map<String, String> map = new HashMap<>();
+			Book book = bookRental.getBook();
+			map.put("bookId", Integer.toString(book.getBookId()));
+			map.put("bookName", book.getBookName());
+			map.put("rentalDate", bookRental.getRentalDate());
+			map.put("returnDueDate", bookRental.getReturnDueDate());
+			map.put("returnDate", bookRental.getReturnDate());
+			map.put("rentalStatus", bookRental.getRentalStatus());
+			return map;
+		}).collect(Collectors.toList());
+		
 	}
 
 

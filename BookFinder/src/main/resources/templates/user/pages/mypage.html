@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://wwww.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/extra/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+      
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+		<script th:src="@{/js/pages/user/mypage.js}"></script>
+	</head>
+
+	<body>
+		<div layout:fragment="content">
+			<input type="hidden" id="username" th:value="${username}">
+			<div class="container">
+				<div class="row mb-5">
+				<div class="col-md-12">
+				<div class="card">
+					<h5 class="card-header">도서 대출 내역</h5>
+				  	<div class="card-body">
+				    	<div>
+				    		<table class="table">
+				    			<thead>
+				    				<tr>
+				    					<th>도서명</th>
+				    					<th>대출일시</th>
+				    					<th>반납기한</th>
+				    					<th>반납일자</th>
+				    					<th>상태</th>
+				    				</tr>
+				    			</thead>
+				    			<tbody id="tbody-user-rental"></tbody>
+				    		</table>
+				    	</div>
+				    </div>
+				</div>
+				</div>
+			</div>
+			</div>
+		</div>
+	</body>
+</html>

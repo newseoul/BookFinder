@@ -51,13 +51,11 @@ public class UserAccount {
 	private String address;
 	private String detailAddress;
 	
-	// m
-	@OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.REMOVE)
-	@JoinColumn(name="username")
+	@OneToMany(mappedBy = "userAccount")
 	@JsonIgnore
 	private List<BookRental> bookRentalList;
 	
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="user_account_role", joinColumns = @JoinColumn(name = "username"),
 				inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();

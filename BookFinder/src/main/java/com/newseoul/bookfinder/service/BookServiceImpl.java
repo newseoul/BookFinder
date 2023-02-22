@@ -28,21 +28,43 @@ public class BookServiceImpl implements BookService{
 	private CategoryRepository categoryRepository;
 
 	@Override
-	public List<Book> getBookList(String keyword, String condition, int pageNo) {
-		switch(condition) {
-			case "book_name":
-				return bookRepository.findByBookNameContainingAndDisplayStatusEqualsOrderByBookNameAsc(
-						keyword, 1, PageRequest.of(pageNo - 1, 15)
+	public List<Book> getBookList(String keyword, String rentalStatus, String condition, int pageNo) {
+		
+		if(rentalStatus.equals("")) {
+			// 도서 대출 여부가 빈값일 때
+			switch(condition) {
+				case "book_name": // 도서명을 선택하면 이쪽으로 감
+					return bookRepository.findByBookNameContainingAndDisplayStatusEqualsOrderByBookNameAsc(
+							keyword, 1, PageRequest.of(pageNo - 1, 15)
 					);
-			case "author":
-				return bookRepository.findByAuthorContainingAndDisplayStatusEqualsOrderByBookNameAsc(
-						keyword, 1, PageRequest.of(pageNo - 1, 15)
+				case "author": // 저자를 선택하면 이쪽으로 감
+					return bookRepository.findByAuthorContainingAndDisplayStatusEqualsOrderByBookNameAsc(
+							keyword, 1, PageRequest.of(pageNo - 1, 15)
 					);
-			default:
-				return bookRepository.findByBookNameContainingOrAuthorContainingAndDisplayStatusEqualsOrderByBookNameAsc(
-						keyword, keyword, 1, PageRequest.of(pageNo - 1, 15) 
+				default: // 전체를 선택하면 이쪽으로 감
+					return bookRepository.findByBookNameContainingOrAuthorContainingAndDisplayStatusEqualsOrderByBookNameAsc(
+							keyword, keyword, 1, PageRequest.of(pageNo - 1, 15) 
 					);
+			}
+		} else {
+			
+			switch(condition) {
+				// 대출 가능 여부가 있으면서 "도서명" 선택했을 때 이쪽으로 감
+				case "book_name":
+					
+				// 대출 가능 여부가 있으면서 "저자" 선택했을 때 이쪽으로 감
+				case "author":
+					
+				// 대출 가능 여부가 있으면서 "전체" 선택했을 때 이쪽으로 감
+				default:
+					return bookRepository.findByBookNameContainingOrAuthorContainingAndRentalStatusEqualsAndDisplayStatusEqualsOrderByBookNameAsc(
+							keyword, keyword, rentalStatus, 1, PageRequest.of(pageNo - 1, 15) 
+					);
+			}
+			
 		}
+		
+		
 		
 		
 	}

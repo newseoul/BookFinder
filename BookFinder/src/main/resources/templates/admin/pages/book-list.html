@@ -26,11 +26,11 @@
 			</div>
 			<div class ="book-filter-area">
 				<form>
-				  <select name="language" >
-				    <option value="none">=== 조건검색 ===</option>
-				    <option value="korean" selected>전체보기</option>
-				    <option value="english">대출중</option>
-				    <option value="chinese">대출가능</option>
+				  <select id="select-rental-status" name="rentalStatus">
+				    <option value="" selected>전체보기</option>
+				    <option value="rentable">대여가능</option>
+				    <option value="on_rental">대여중</option>
+				    <option value="overdue">연체중</option>
 				  </select>
 				</form>
 	    	</div>

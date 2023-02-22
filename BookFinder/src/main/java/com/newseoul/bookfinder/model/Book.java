@@ -41,6 +41,8 @@ public class Book {
 	private String locationMemo;
 	private String filename;
 	private int displayStatus;
+	// 대여 상태(대여가능:rentable, 대여중:on_rental, 연체중:overdue)
+	private String rentalStatus;
 	
 	@OneToMany(mappedBy = "book")
 	@JsonIgnore

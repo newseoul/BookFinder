@@ -29,14 +29,19 @@ public class BookRestController {
 
 	@GetMapping("")
 	public List<Book> list(@RequestParam(defaultValue = "") String keyword,
-			@RequestParam(defaultValue = "") String condition, @RequestParam(defaultValue = "1") Integer page) {
-		return bookService.getBookList(keyword, condition, page);
+			@RequestParam(defaultValue = "") String condition, 
+			// 전체보기:"", 대여가능:"rentable", 대여중:"on_rental", 연체중:"overdue")
+			@RequestParam(defaultValue = "") String rentalStatus,
+			@RequestParam(defaultValue = "1") Integer page) {
+		return bookService.getBookList(keyword, rentalStatus, condition, page);
 	}
 
 	@GetMapping("/count")
 	public long count(@RequestParam(defaultValue = "") String keyword,
-			@RequestParam(defaultValue = "") String condition) {
-		return bookService.getBookCount(keyword, condition);
+			@RequestParam(defaultValue = "") String condition,
+			// 전체보기:"", 대여가능:"rentable", 대여중:"on_rental", 연체중:"overdue")
+			@RequestParam(defaultValue = "") String rentalStatus) {
+		return bookService.getBookCount(keyword, rentalStatus, condition);
 	}
 
 	@GetMapping("/{bookId}")

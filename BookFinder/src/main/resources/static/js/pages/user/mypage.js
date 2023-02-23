@@ -35,7 +35,7 @@
 				cellReturnDate.textContent = book.returnDate;
 				tr.appendChild(cellReturnDate);
 				
-				// 상태
+				// 대출상태
 				const cellRentalStatus = document.createElement("td");
 				if(typeof book.rentalStatus === 'string') {
 					switch(book.rentalStatus) {

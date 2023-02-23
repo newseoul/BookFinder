@@ -88,9 +88,32 @@
 		// 청구기호
 		const locationMemo = document.createElement("span");
 		locationMemo.classList.add("text-wrap");
+		locationMemo.classList.add("border-end");
+		locationMemo.classList.add("item-border-right");
 		locationMemo.innerHTML = "청구기호: " +  ( book.locationMemo !== "" && book.locationMemo !== null ? book.locationMemo : "<small class='text-muted'>(없음)</small>" );  
 		p2.appendChild(locationMemo);
 		
+		// 대출 상태
+		const bookRentalStatus = document.createElement("span");
+		bookRentalStatus.classList.add("text-wrap");
+		bookRentalStatus.innerHTML = "도서 상태: " +  ( book.rentalStatus);
+		if(typeof book.rentalStatus === 'string') {
+			switch(book.rentalStatus) {
+				case 'on_rental':
+					bookRentalStatus.textContent = "대출불가";
+					break;							
+				case 'overdue':
+					bookRentalStatus.textContent = "대출불가";
+					break;
+				case 'rentable':
+					bookRentalStatus.textContent = "대출가능";
+					break;
+			}
+			
+		}
+		p2.appendChild(bookRentalStatus);
+		
+		//
 		cardText.appendChild(p2);
 		
 		cardBody.appendChild(cardText);

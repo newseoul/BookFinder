@@ -33,12 +33,12 @@ public class UserRestController {
 		return userService.getUserCount();
 	}
 	
-	@GetMapping("{username}")
+	@GetMapping("/{username}")
 	public UserAccount read(@PathVariable String username) {
 		return userService.getUser(username);
 	}
 	
-	@GetMapping("{username}/rental")
+	@GetMapping("/{username}/rental")
 	public List<Map<String, String>> rentalList(@PathVariable String username) {
 		return userService.getBookRentalList(username);
 		

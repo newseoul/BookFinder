@@ -42,10 +42,10 @@ public class BookRentalRestController {
 	@Autowired
 	IsRentable isRentable;
 	
-//	@InitBinder
-//	protected void initBinder(WebDataBinder binder) {
-//		binder.addValidators(isRentable);
-//	}
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.addValidators(isRentable);
+	}
 	
 	@GetMapping("")
 	public List<BookRental> list() {

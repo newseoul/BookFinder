@@ -82,7 +82,7 @@
 		location.classList.add("text-wrap");
 		location.classList.add("border-end");
 		location.classList.add("item-border-right");
-		location.innerHTML = "자료위치: " +  ( typeof book.location === 'object' && book.location.locationName !== "" && book.location.locationName !== null ? book.location.locationName : "<small class='text-muted'>(알수없음)</small>" );  
+		location.innerHTML = "자료위치: " +  ( typeof book.location === 'object' && book.location !== null && book.location.locationName !== "" && book.location.locationName !== null ? book.location.locationName : "<small class='text-muted'>(알수없음)</small>" );  
 		p2.appendChild(location);
 		
 		// 청구기호

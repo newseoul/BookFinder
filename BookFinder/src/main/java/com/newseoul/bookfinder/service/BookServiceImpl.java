@@ -1,13 +1,17 @@
 package com.newseoul.bookfinder.service;
 
 import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.newseoul.bookfinder.auth.model.UserAccount;
 import com.newseoul.bookfinder.model.Book;
 import com.newseoul.bookfinder.model.Category;
 import com.newseoul.bookfinder.model.Location;
@@ -160,5 +164,31 @@ public class BookServiceImpl implements BookService{
 		bookToUpdate.setBookDetail(book.getBookDetail());
 
 		bookRepository.save(bookToUpdate);
+	}
+	
+	/**
+	 * 도서 대출 가능 상태 수정
+	 */
+	@Override
+	public void updateRentalStatus(Book book, String rentalStatus)
+	{
+		Book bookToUpdate = this.getBook(book.getBookId());
+		bookToUpdate.setRentalStatus(rentalStatus);
+		bookRepository.save(bookToUpdate);
+	}
+
+	@Override
+	public List<Map<String, String>> getBookRentalList(Integer bookId) {
+		return this.getBook(bookId).getBookRentalList().stream().map(bookRental -> {
+			Map<String, String> map = new HashMap<>();
+			UserAccount user = bookRental.getUserAccount();
+			map.put("username", user.getUsername());
+			map.put("name", user.getName());
+			map.put("rentalDate", bookRental.getRentalDate());
+			map.put("returnDueDate", bookRental.getReturnDueDate());
+			map.put("returnDate", bookRental.getReturnDate());
+			map.put("rentalStatus", bookRental.getRentalStatus());
+			return map;
+		}).collect(Collectors.toList());
 	}
 }

@@ -8,9 +8,8 @@
 	    	</a>
 	    	
 	    	<form sec:authorize="isAuthenticated()" th:action="@{logout}"  method="post">
-	    		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 		    	<button type="submit" class="btn btn-dark">
-			    	<i class="bi bi-box-arrow-right"></i>    	
+			    	<i class="bi bi-box-arrow-right"></i>
 		    	</button>
 		    	<button type="button" class="btn btn-dark" onclick="window.location.href='/mypage';">
 		    		<i class="bi bi-person-fill"></i>

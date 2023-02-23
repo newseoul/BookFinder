@@ -73,6 +73,6 @@ public class BookRental {
 		this.returnDueDate = new SimpleDateFormat("yyyy-MM-dd").parse(returnDueDate);
 	}
 	public void setReturnDate(String returnDate) throws ParseException {
-		this.rentalDate = new SimpleDateFormat("yyyy-MM-dd").parse(returnDate);
+		this.returnDate = new SimpleDateFormat("yyyy-MM-dd").parse(returnDate);
 	}
 }

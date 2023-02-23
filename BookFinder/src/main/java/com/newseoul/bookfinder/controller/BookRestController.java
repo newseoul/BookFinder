@@ -2,6 +2,7 @@ package com.newseoul.bookfinder.controller;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -126,5 +127,10 @@ public class BookRestController {
 
 		book.setFilename(filename);
 		bookService.updateBook(book, categoryId, locationId);
+	}
+	
+	@GetMapping("/{bookId}/rental")
+	public List<Map<String, String>> rentalList(@PathVariable Integer bookId) {
+		return bookService.getBookRentalList(bookId);
 	}
 }

@@ -16,14 +16,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.newseoul.bookfinder.auth.model.UserAccount;
 import com.newseoul.bookfinder.auth.service.UserService;
-import com.newseoul.bookfinder.auth.validators.ConfirmPassword;
-import com.newseoul.bookfinder.auth.validators.IsEmailUnique;
-import com.newseoul.bookfinder.auth.validators.IsIdUnique;
-import com.newseoul.bookfinder.auth.validators.IsPhoneNumberUnique;
+import com.newseoul.bookfinder.auth.validator.ConfirmPassword;
+import com.newseoul.bookfinder.auth.validator.IsEmailUnique;
+import com.newseoul.bookfinder.auth.validator.IsIdUnique;
+import com.newseoul.bookfinder.auth.validator.IsPhoneNumberUnique;
 
 @RestController
 public class JoinRestController {
-	
+
 	@Autowired
 	private UserService userService;
 	@Autowired
@@ -34,8 +34,7 @@ public class JoinRestController {
 	private IsEmailUnique isEmailUniqueValidator;
 	@Autowired
 	private IsPhoneNumberUnique isPhoneNumberUnique;
-	
-	
+
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		binder.addValidators(isIdUniqueValidator);
@@ -44,14 +43,13 @@ public class JoinRestController {
 		binder.addValidators(isPhoneNumberUnique);
 	}
 
-	@PostMapping(value="api/join")
+	@PostMapping(value = "api/join")
 	public ResponseEntity<Map<String, Object>> join(@Validated UserAccount user, BindingResult bindingResult) {
 		Map<String, Object> body = new HashMap<>();
 		HttpStatus status = HttpStatus.CREATED;
 		if (bindingResult.hasErrors()) {
-			Map<String, String> errors = bindingResult.getFieldErrors()
-					.stream()
-		            .collect(Collectors.toMap(fe -> fe.getField(), fe -> fe.getDefaultMessage()));
+			Map<String, String> errors = bindingResult.getFieldErrors().stream()
+					.collect(Collectors.toMap(fe -> fe.getField(), fe -> fe.getDefaultMessage()));
 			body.put("errors", errors);
 			status = HttpStatus.BAD_REQUEST;
 		} else {

@@ -1,4 +1,26 @@
 (() => {
+	// 도서 반납 처리
+	const returnBook = (bookId) => {
+		const formData = new FormData();
+		const csrfElem = document.getElementById("csrfToken");
+		formData.append(csrfElem.getAttribute('name'), csrfElem.value);
+		
+		axios.post(`/api/rental/${bookId}/return`, formData)
+		.then(response => {
+			console.log(response);
+			if(response.status === 200) {
+				alert("도서 반납 처리가 완료되었습니다.");
+				select(bookId);
+				rentalList(bookId);
+			}
+		})
+		.catch(error => {
+			console.error("도서 반납 Ajax 오류");
+			console.error(error);
+		});
+		
+	};
+	
 	// 상세 불러오기
 	const select = (bookId) => {
 		axios.get(`/api/book/${bookId}`)
@@ -9,6 +31,34 @@
 			document.querySelector("#author").value = book.author;
 			document.querySelector("#publisher").value = book.publisher;
 			document.querySelector("#publicationDate").value = book.publicationDate;
+			
+			if(typeof book.rentalStatus === 'string') {
+				switch(book.rentalStatus) {
+					case 'rentable' : 
+						document.querySelector("#span-rental-status").textContent = "대출 가능";
+						break;
+					case 'overdue' : 
+						document.querySelector("#span-rental-status").textContent = "연체중";
+						break;
+					case 'on_rental' : 
+						document.querySelector("#span-rental-status").textContent = "대출중";
+						break;
+				}
+				
+				const btnReturn = document.getElementById("btn-return");
+				if(book.rentalStatus === 'overdue' || book.rentalStatus === 'on_rental') {
+					btnReturn.removeAttribute("disabled");
+					btnReturn.addEventListener("click", () => {
+						if(window.confirm("해당 도서를 반납 처리하시겠습니까?")) {
+							returnBook(bookId);
+						}
+					});
+				} else {
+					btnReturn.setAttribute("disabled", "disabled");
+				}
+			}
+			
+			
 			
 			if(book.location !== null && typeof book.location.locationId === 'number') {
 				document.querySelector('#locationId').value = book.location.locationId;
@@ -32,10 +82,14 @@
 			}
 		
 			// 썸네일
-			if(typeof book.filename === 'string') {				
+			const areaThumbnail = document.querySelector("#area-thumbnail");
+			while(areaThumbnail.firstChild) {
+				areaThumbnail.removeChild(areaThumbnail.firstChild);
+			}				
+			if(typeof book.filename === 'string') {
 				const img = document.createElement("img");
-				img.setAttribute("src", `http://localhost:8090/images/uploads/${book.filename}`);
-				document.querySelector("#area-thumbnail").appendChild(img);
+				img.setAttribute("src", `/images/uploads/${book.filename}`);
+				areaThumbnail.appendChild(img);
 				document.querySelector("#filename").setAttribute('value', book.filename);
 				img.style.width = '100%';
 			}
@@ -109,6 +163,84 @@
 		});
 	};
 	
+	// 도서 대출 목록
+	const rentalList = bookId => {
+		const tbody = document.querySelector("#tbody-book-rental-list");
+		while(tbody.firstChild) {
+			tbody.removeChild(tbody.firstChild);
+		}
+		
+		axios.get(`/api/book/${bookId}/rental`)
+		.then(response => {
+			const bookRentalList = response.data;
+			if(bookRentalList.length < 1) {
+				const tr = document.createElement("tr");
+				const td = document.createElement("td");
+				td.setAttribute("colspan", '5');
+				td.textContent = "해당 도서의 대출 내역이 없습니다.";
+				tr.appendChild(td);
+				tbody.appendChild(tr);
+			} else {
+				bookRentalList.forEach(rental => {
+					const tr = document.createElement("tr");
+					
+					// 회원정보
+					const cellUserInfo = document.createElement("td");
+					const userLink = document.createElement("a");
+					userLink.classList.add("text-primary");
+					userLink.setAttribute("href", `/admin/user/${rental.username}`);
+					userLink.textContent = `${rental.name}(${rental.username})`;
+					cellUserInfo.appendChild(userLink);
+					tr.appendChild(cellUserInfo);
+					
+					const cellRentalDate = document.createElement("td");
+					cellRentalDate.textContent = rental.rentalDate;
+					tr.appendChild(cellRentalDate);
+					
+					const cellReturnDueDate = document.createElement("td");
+					cellReturnDueDate.textContent = rental.returnDueDate;
+					tr.appendChild(cellReturnDueDate);
+					
+					const cellReturnDate = document.createElement("td");
+					cellReturnDate.textContent = rental.returnDate;
+					tr.appendChild(cellReturnDate);
+					
+					const cellRentalStatus = document.createElement("td");
+					
+					//대여 상태( 대여중:on_rental, 연체중:overdue, 반납완료 : returned)
+					if(typeof rental.rentalStatus === 'string') {
+						switch(rental.rentalStatus) {
+							case 'on_rental':
+								cellRentalStatus.textContent = "대출중";
+								break;							
+							case 'overdue':
+								cellRentalStatus.textContent = "연체중";
+								break;
+							case 'returned':
+								cellRentalStatus.textContent = "반납완료";
+								break;
+						}
+						
+					}
+					tr.appendChild(cellRentalStatus);
+					
+					tbody.appendChild(tr);
+				})
+			}
+		})
+		.catch(error => {
+			console.error('Ajax 통신 오류 - 도서 대출 목록');
+			console.error(error);
+			const tr = document.createELement("tr");
+				const td = document.createElement("td");
+				td.setAttribute("colspan", '5');
+				td.textContent = "오류가 발생하여 불러오지 못했습니다.";
+				tr.appendChild(td);
+				tbody.appendChild(tr);
+		});
+		
+	};
+	
 	document.addEventListener("DOMContentLoaded", async () => {
 		
 		await locationList();
@@ -116,6 +248,8 @@
 		
 		const input = document.querySelector("#input-book-id");
 		select(input.value);
+		
+		rentalList(input.value);
 		
 		const button = document.getElementById("btn-modify");
 		button.addEventListener("click", () => {

@@ -2,6 +2,7 @@ package com.newseoul.bookfinder.model;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -44,9 +45,9 @@ public class Book {
 	// 대여 상태(대여가능:rentable, 대여중:on_rental, 연체중:overdue)
 	private String rentalStatus;
 	
-	@OneToMany(mappedBy = "book")
+	@OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<BookRental> bookRentalList;
+	private List<BookRental> bookRentalList = new ArrayList<>();
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "location_id")
@@ -62,5 +63,11 @@ public class Book {
 	
 	public void setPublicationDate(String publicationDate) throws ParseException {
 		this.publicationDate = new SimpleDateFormat("yyyy-MM-dd").parse(publicationDate);
+	}
+	
+	// 도서 대출 추가
+	public void addBookRental(BookRental bookRental) {
+		bookRental.setBook(this);
+		bookRentalList.add(bookRental);
 	}
 }

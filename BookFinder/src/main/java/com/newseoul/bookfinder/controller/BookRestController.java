@@ -99,19 +99,22 @@ public class BookRestController {
 			@RequestParam(required = false) Integer locationId, 
 			HttpServletRequest request) {
 
-		// 이미지 변경할 때 기존 이미지 삭제
-		if (beforeImg != null && !beforeImg.equals("")) {
-			String userPath = System.getProperty("user.dir");
-			String path = userPath + "\\src\\main\\resources\\static\\images\\uploads\\";
-			File file = new File(path + beforeImg);
-
-			if (file.exists()) {
-				file.delete();
-
-			}
-		}
+		
 
 		if (img != null && !img.isEmpty()) {
+			
+			// 이미지 변경할 때 기존 이미지 삭제
+			if (beforeImg != null && !beforeImg.equals("")) {
+				String userPath = System.getProperty("user.dir");
+				String path = userPath + "\\src\\main\\resources\\static\\images\\uploads\\";
+				File file = new File(path + beforeImg);
+
+				if (file.exists()) {
+					file.delete();
+
+				}
+			}
+			
 			String filename = "";
 			filename = img.getOriginalFilename();
 

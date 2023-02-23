@@ -232,11 +232,11 @@
 			console.error('Ajax 통신 오류 - 도서 대출 목록');
 			console.error(error);
 			const tr = document.createELement("tr");
-				const td = document.createElement("td");
-				td.setAttribute("colspan", '5');
-				td.textContent = "오류가 발생하여 불러오지 못했습니다.";
-				tr.appendChild(td);
-				tbody.appendChild(tr);
+			const td = document.createElement("td");
+			td.setAttribute("colspan", '5');
+			td.textContent = "오류가 발생하여 불러오지 못했습니다.";
+			tr.appendChild(td);
+			tbody.appendChild(tr);
 		});
 		
 	};

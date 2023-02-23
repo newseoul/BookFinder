@@ -120,6 +120,7 @@ public class BookServiceImpl implements BookService{
 			location.setLocationId(locationId);
 			book.setLocation(location);
 		}
+		book.setRentalStatus("rentable");
 		bookRepository.save(book);
 	}
 

@@ -48,7 +48,7 @@
 				const cellRentalStatus = document.createElement("td");
 				//cellRentalStatus.textContent = book.rentalStatus;
 				if (book.rentalStatus == "rentable"){
-					cellRentalStatus.textContent = "대출가능";
+					cellRentalStatus.textContent = "대출 가능";
 				} else if (book.rentalStatus == "overdue"){
 					cellRentalStatus.textContent = "연체중";
 				} else {

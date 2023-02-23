@@ -31,9 +31,9 @@
 			if(typeof book.rentalStatus === 'string') {
 				let badge = '<span class="badge text-bg-secondary">(알수없음)</span>';
 				switch(book.rentalStatus) {
-					case 'rentable': badge='<span class="badge text-bg-success">대출가능</span>'; break;
-					case 'on_rental': badge='<span class="badge text-bg-warning">대출불가</span>'; break;
-					case 'overdue': badge='<span class="badge text-bg-danger">대출불가</span>'; break;
+					case 'rentable': badge='<span class="badge text-bg-success">대출 가능</span>'; break;
+					case 'on_rental': badge='<span class="badge text-bg-warning">대출 불가</span>'; break;
+					case 'overdue': badge='<span class="badge text-bg-danger">대출 불가</span>'; break;
 				}				
 				document.querySelector("#li-rental-status").innerHTML = "대출가능여부: " +  badge;
 				const btnBookRental = document.querySelector("#btn-book-rental");

@@ -15,9 +15,4 @@ public class UserController {
 		return "admin/pages/user-list";
 	}
 	
-	@GetMapping("/{username}")
-	public String show(@PathVariable String username, Model model) {
-		model.addAttribute("username", username);
-		return "admin/pages/user-detail";
-	}
 }

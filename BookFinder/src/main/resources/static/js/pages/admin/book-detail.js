@@ -277,7 +277,10 @@
 			const openChk = document.querySelector('input[name="openChk"]:checked').value;
 			formData.append('displayStatus', openChk);
 			
-			formData.append('img', document.getElementById("filename").files[0]);
+			const file = document.getElementById("filename").files[0];
+			if(typeof file !== 'undefined') {				
+				formData.append('img', document.getElementById("filename").files[0]);
+			}
 			formData.append('beforeImg', document.getElementById("beforeImg").value); // 이미지 변경 시 기존 이미지 삭제
 			formData.append('bookDetail', document.getElementById("bookDetail").value);
 			

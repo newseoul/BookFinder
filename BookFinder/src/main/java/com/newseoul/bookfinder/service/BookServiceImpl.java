@@ -141,7 +141,8 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public void updateBook(Book book, Integer categoryId, Integer locationId) {
 		Book bookToUpdate = this.getBook(book.getBookId());
-		bookToUpdate.setBookName(book.getBookName());
+
+		bookToUpdate.setBookName(book.getBookName());					
 		bookToUpdate.setAuthor(book.getAuthor());
 		bookToUpdate.setPublisher(book.getPublisher());
 		try {
@@ -161,7 +162,9 @@ public class BookServiceImpl implements BookService{
 			bookToUpdate.setCategory(category);
 		}
 		bookToUpdate.setDisplayStatus(book.getDisplayStatus());
-		bookToUpdate.setFilename(book.getFilename());
+		if(book.getFilename() != null) {
+			bookToUpdate.setFilename(book.getFilename());
+		}
 		bookToUpdate.setBookDetail(book.getBookDetail());
 
 		bookRepository.save(bookToUpdate);

@@ -111,8 +111,8 @@ public class BookRestController {
 			}
 		}
 
-		String filename = "";
 		if (img != null && !img.isEmpty()) {
+			String filename = "";
 			filename = img.getOriginalFilename();
 
 			try {
@@ -123,9 +123,9 @@ public class BookRestController {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+			book.setFilename(filename);
 		}
 
-		book.setFilename(filename);
 		bookService.updateBook(book, categoryId, locationId);
 	}
 	

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,6 +59,25 @@ public class BookRentalServiceImpl implements BookRentalService {
 		user.addBookRental(bookRental);
 		
 		return bookRentalRepository.save(bookRental);
+	}
+
+	@Override
+	public List<BookRental> returnBook(Book book) throws ParseException {
+		// 도서 대출 레코드 설정
+		Book bookToUpdate = bookRepository.findById(book.getBookId()).orElse(null);
+		List<BookRental> bookRentalList = bookRentalRepository.findByBookEqualsAndRentalStatusIn(book, Set.of("on_rental", "overdue"));
+		for(BookRental bookRental : bookRentalList) {
+			bookRental.setRentalStatus("returned");
+			LocalDateTime now = LocalDateTime.now();
+			bookRental.setReturnDate(DateTimeFormatter.ofPattern("yyyy-MM-dd").format(now));
+			bookRentalRepository.save(bookRental);
+		}
+
+		// 도서 대출 상태 변경
+		bookToUpdate.setRentalStatus("rentable");
+		bookRepository.save(bookToUpdate);
+		
+		return bookRentalList;
 	}
 
 }

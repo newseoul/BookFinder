@@ -8,17 +8,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.newseoul.bookfinder.auth.model.UserAccount;
 import com.newseoul.bookfinder.auth.service.UserService;
 import com.newseoul.bookfinder.model.Book;
 import com.newseoul.bookfinder.model.BookRental;
@@ -72,7 +72,17 @@ public class BookRentalRestController {
 			e.printStackTrace();
 			return ResponseEntity.internalServerError().build();
 		}
-		
-		
+	}
+	
+	@PostMapping("/{bookId}/return")
+	public ResponseEntity<List<BookRental>> returnBook(Book book){
+		try {
+			System.out.println(book.getBookId());
+			List<BookRental> bookRentalList = bookRentalService.returnBook(book);
+			return ResponseEntity.ok(bookRentalList);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return ResponseEntity.internalServerError().build();
+		}
 	}
 }

@@ -1,4 +1,26 @@
 (() => {
+	// 도서 반납 처리
+	const returnBook = (bookId) => {
+		const formData = new FormData();
+		const csrfElem = document.getElementById("csrfToken");
+		formData.append(csrfElem.getAttribute('name'), csrfElem.value);
+		
+		axios.post(`/api/rental/${bookId}/return`, formData)
+		.then(response => {
+			console.log(response);
+			if(response.status === 200) {
+				alert("도서 반납 처리가 완료되었습니다.");
+				select(bookId);
+				rentalList(bookId);
+			}
+		})
+		.catch(error => {
+			console.error("도서 반납 Ajax 오류");
+			console.error(error);
+		});
+		
+	};
+	
 	// 상세 불러오기
 	const select = (bookId) => {
 		axios.get(`/api/book/${bookId}`)
@@ -9,6 +31,34 @@
 			document.querySelector("#author").value = book.author;
 			document.querySelector("#publisher").value = book.publisher;
 			document.querySelector("#publicationDate").value = book.publicationDate;
+			
+			if(typeof book.rentalStatus === 'string') {
+				switch(book.rentalStatus) {
+					case 'rentable' : 
+						document.querySelector("#span-rental-status").textContent = "대출 가능";
+						break;
+					case 'overdue' : 
+						document.querySelector("#span-rental-status").textContent = "연체중";
+						break;
+					case 'on_rental' : 
+						document.querySelector("#span-rental-status").textContent = "대출중";
+						break;
+				}
+				
+				const btnReturn = document.getElementById("btn-return");
+				if(book.rentalStatus === 'overdue' || book.rentalStatus === 'on_rental') {
+					btnReturn.removeAttribute("disabled");
+					btnReturn.addEventListener("click", () => {
+						if(window.confirm("해당 도서를 반납 처리하시겠습니까?")) {
+							returnBook(bookId);
+						}
+					});
+				} else {
+					btnReturn.setAttribute("disabled", "disabled");
+				}
+			}
+			
+			
 			
 			if(book.location !== null && typeof book.location.locationId === 'number') {
 				document.querySelector('#locationId').value = book.location.locationId;
@@ -32,10 +82,14 @@
 			}
 		
 			// 썸네일
-			if(typeof book.filename === 'string') {				
+			const areaThumbnail = document.querySelector("#area-thumbnail");
+			while(areaThumbnail.firstChild) {
+				areaThumbnail.removeChild(areaThumbnail.firstChild);
+			}				
+			if(typeof book.filename === 'string') {
 				const img = document.createElement("img");
 				img.setAttribute("src", `/images/uploads/${book.filename}`);
-				document.querySelector("#area-thumbnail").appendChild(img);
+				areaThumbnail.appendChild(img);
 				document.querySelector("#filename").setAttribute('value', book.filename);
 				img.style.width = '100%';
 			}
@@ -157,7 +211,7 @@
 					if(typeof rental.rentalStatus === 'string') {
 						switch(rental.rentalStatus) {
 							case 'on_rental':
-								cellRentalStatus.textContent = "대여중";
+								cellRentalStatus.textContent = "대출중";
 								break;							
 							case 'overdue':
 								cellRentalStatus.textContent = "연체중";

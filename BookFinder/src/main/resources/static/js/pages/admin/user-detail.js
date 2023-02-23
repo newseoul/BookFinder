@@ -75,7 +75,7 @@
 				if(typeof rental.rentalStatus === 'string') {
 					switch(rental.rentalStatus) {
 						case 'on_rental':
-							cellRentalStatus.textContent = "대여중";
+							cellRentalStatus.textContent = "대출중";
 							break;							
 						case 'overdue':
 							cellRentalStatus.textContent = "연체중";

@@ -13,10 +13,12 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-//		.authorizeHttpRequests()
-//		.antMatchers("/book/**").hasRole("ADMIN")
+		.authorizeHttpRequests()
+		.antMatchers("/admin/**").hasRole("ADMIN")
+//		.antMatchers("/api/rental/**").authenticated()
+		.antMatchers("/mypage").authenticated()
 //		.anyRequest().authenticated()
-//		.and()
+		.and()
 		.formLogin()
 		.loginPage("/login")
 		.defaultSuccessUrl("/")

@@ -17,7 +17,11 @@
 				const tr = document.createElement("tr");
 				
 				const cellBookName = document.createElement("td");
-				cellBookName.textContent = book.bookName;
+				const linkBookName = document.createElement("a");
+				linkBookName.classList.add("text-primary");
+				linkBookName.setAttribute("href", "/book/" + book.bookId);
+				linkBookName.textContent = book.bookName; 
+				cellBookName.appendChild(linkBookName);
 				tr.appendChild(cellBookName);
 				
 				// 대출일시
@@ -40,7 +44,7 @@
 				if(typeof book.rentalStatus === 'string') {
 					switch(book.rentalStatus) {
 						case 'on_rental':
-							cellRentalStatus.textContent = "대여중";
+							cellRentalStatus.textContent = "대출중";
 							break;							
 						case 'overdue':
 							cellRentalStatus.textContent = "연체중";

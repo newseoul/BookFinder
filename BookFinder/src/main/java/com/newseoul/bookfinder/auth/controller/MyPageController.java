@@ -19,6 +19,6 @@ public class MyPageController {
 		}
 		String username = auth.getName();
 		model.addAttribute("username", username);
-		return "admin/pages/user-detail";
+		return "user/pages/mypage";
 	}
 }

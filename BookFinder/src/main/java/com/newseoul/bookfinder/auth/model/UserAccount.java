@@ -1,5 +1,6 @@
 package com.newseoul.bookfinder.auth.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -51,9 +52,9 @@ public class UserAccount {
 	private String address;
 	private String detailAddress;
 	
-	@OneToMany(mappedBy = "userAccount")
+	@OneToMany(mappedBy = "userAccount", cascade = CascadeType.ALL)
 	@JsonIgnore
-	private List<BookRental> bookRentalList;
+	private List<BookRental> bookRentalList = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name="user_account_role", joinColumns = @JoinColumn(name = "username"),
@@ -62,5 +63,11 @@ public class UserAccount {
 	
 	public void addRoles(Collection<Role> roles) {
 		this.roles.addAll(roles);
+	}
+	
+	// 도서 대출 추가
+	public void addBookRental(BookRental bookRental) {
+		bookRental.setUserAccount(this);
+		bookRentalList.add(bookRental);
 	}
 }

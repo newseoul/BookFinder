@@ -161,4 +161,15 @@ public class BookServiceImpl implements BookService{
 
 		bookRepository.save(bookToUpdate);
 	}
+	
+	/**
+	 * 도서 대출 가능 상태 수정
+	 */
+	@Override
+	public void updateRentalStatus(Book book, String rentalStatus)
+	{
+		Book bookToUpdate = this.getBook(book.getBookId());
+		bookToUpdate.setRentalStatus(rentalStatus);
+		bookRepository.save(bookToUpdate);
+	}
 }

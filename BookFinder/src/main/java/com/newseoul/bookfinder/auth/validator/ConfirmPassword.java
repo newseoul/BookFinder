@@ -1,4 +1,4 @@
-package com.newseoul.bookfinder.auth.validators;
+package com.newseoul.bookfinder.auth.validator;
 
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;

@@ -34,7 +34,7 @@
 
 # 구성원 소개
 
-| 이름 | 포지션 | 역할 |
+| 이름 | 직무 | 역할 |
 | --- | --- | --- |
 | [류순하(리더)](https://github.com/rainofpainki) | Full-Stack 개발 | 메인페이지, 도서 대출/반납, 회원/권한 |
 | [이미선](https://github.com/2-ms) | Full-Stack 개발 | 도서 등록/수정, 마이페이지 |

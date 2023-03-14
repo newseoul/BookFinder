@@ -1,9 +1,17 @@
 # 📚BookFinder
 오라클자바교육센터 C조의 ***BookFinder***
 
+# 개요
+## 사용자
+![image](https://user-images.githubusercontent.com/8243179/224901179-9e764c73-4f18-4474-8543-9c12f84fdc1f.png)
+- 도서를 검색하고 도서에 대한 정보를 제공 받음
+- 회원가입 및 로그인하여 도서의 대출을 신청함
 
-
-# 프로그램 소개
+## 관리자
+![image](https://user-images.githubusercontent.com/8243179/224901295-6ba357df-aaf1-462b-b869-1469cd225485.png)
+- 도서를 등록/수정/삭제하여 관리함
+- 도서가 반납되면 도서의 반납을 처리함
+- 회원을 관리함
 
 # 기능
 

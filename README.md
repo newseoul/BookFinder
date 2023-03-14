@@ -1,7 +1,19 @@
+![Github messages](https://img.shields.io/github/languages/count/newseoul/BookFinder)
+![Github messages](https://img.shields.io/github/last-commit/newseoul/BookFinder)
+![Github messages](https://img.shields.io/github/languages/top/newseoul/BookFinder)
+![Github messages](https://img.shields.io/github/repo-size/newseoul/BookFinder)
+![Github messages](https://img.shields.io/github/languages/code-size/newseoul/BookFinder)
+![Github messages](https://img.shields.io/github/commit-activity/w/newseoul/BookFinder)
+[![GitHub forks](https://img.shields.io/github/forks/newseoul/BookFinder)](https://github.com/newseoul/BookFinder/network)
+[![GitHub issues](https://img.shields.io/github/issues/newseoul/BookFinder)](https://github.com/newseoul/BookFinder/issues)
+[![GitHub stars](https://img.shields.io/github/stars/newseoul/BookFinder)](https://github.com/newseoul/BookFinder/stargazers)
+
 # 📚BookFinder
+<!-- ![image]() -->
+
 오라클자바교육센터 C조의 ***BookFinder***
 
-# 개요
+# 서비스 소개
 ## 사용자
 ![image](https://user-images.githubusercontent.com/8243179/224901179-9e764c73-4f18-4474-8543-9c12f84fdc1f.png)
 - 도서를 검색하고 도서에 대한 정보를 제공 받음

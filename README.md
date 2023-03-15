@@ -37,7 +37,7 @@
 </div>
 
 ### 회원가입/로그인
-- 회원만 도서 대출을 신청할 수 있록도록 회원가입 및 로그인 기능을 구현
+- 회원만 도서 대출을 신청할 수 있도록 회원가입 및 로그인 기능을 구현
 <div align="center">
   <img src="https://user-images.githubusercontent.com/8243179/225186382-e10f77b0-8259-4954-bd6a-3eb51e94eef0.png" style="width:49%">
   <img src="https://user-images.githubusercontent.com/8243179/225186392-94d6809e-8bb3-4c20-8d08-7d55117e09f9.png" style="width:49%">

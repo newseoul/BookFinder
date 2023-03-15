@@ -43,7 +43,7 @@
   <img src="https://user-images.githubusercontent.com/8243179/225186392-94d6809e-8bb3-4c20-8d08-7d55117e09f9.png" style="width:49%">
 </div>
 
-## ⚙️관리자 
+## ⚙️관리자 기능
 ### 도서 관리
 - 도서의 목록을 조회하고 신규 도서 등록 및 수정 기능을 구현
 <div align="center">

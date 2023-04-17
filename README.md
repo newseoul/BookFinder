@@ -88,7 +88,7 @@
 - Javascript ES6+
 
 # 🍩ERD
-![image](https://user-images.githubusercontent.com/8243179/224896805-75995138-71d4-4739-827b-2da537410fcd.png)
+![image](https://user-images.githubusercontent.com/76688104/232414392-879ad9af-59a6-4410-8f21-4ee446015c0e.png)
 
 # 👥구성원 소개
 
